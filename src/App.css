@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import "tailwindcss";
+
+
+
+.font-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+@keyframes bikeRide {
+  0% {
+    left: -40px;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    left: calc(100% + 40px);
+    transform: translateY(-50%);
+  }
+}
+
+.animate-bikeRide {
+  animation: bikeRide 1.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes arrowMove {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(6px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-arrowMove {
+  animation: arrowMove 1.5s ease-in-out infinite;
+}
+
+
+
