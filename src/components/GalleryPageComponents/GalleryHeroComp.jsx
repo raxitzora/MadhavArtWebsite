@@ -139,7 +139,7 @@ export default function GalleryHeroComp() {
               to="/contact"
               className="block border border-white/40 hover:border-orange-500 active:scale-95 transition-all duration-200 text-white font-bold text-sm px-7 py-3 rounded-md"
             >
-              Get A Quote
+              Contact Us
             </NavLink>
           </motion.div>
         </motion.div>
