@@ -101,37 +101,51 @@ export default function GalleryHeroComp() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
         >
           {/* ── Primary button – 100% ORIGINAL, untouched ── */}
-          <button
-            onClick={scrollToGallery}
-            className="
-              group relative overflow-hidden
-              w-full sm:w-105 h-14 rounded-xl
-              font-semibold text-white
-              bg-linear-to-r from-[#0f172a] via-[#1e293b] to-[#334155]
-              shadow-lg shadow-blue-500/20
-              transition-all duration-300
-              hover:scale-105
-              hover:shadow-[0_0_30px_rgba(249,115,22,0.55)]
-            "
-          >
-            <div
-              className={`
-                absolute inset-0
-                bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]
-                origin-left z-0
-                transition-transform duration-1000 ease-in-out
-                ${fillButton ? "scale-x-100" : "scale-x-0"}
-              `}
-            />
-            <span className="relative z-20 flex items-center justify-center gap-3 h-full">
-              <Sparkles size={18} className="group-hover:rotate-12 transition-transform duration-300" />
-              View Transformations
-              <span className="transition-transform duration-300 group-hover:translate-x-2">→</span>
-            </span>
-            {animateBike && (
-              <Bike size={28} className="absolute top-1/2 -translate-y-1/2 animate-bikeRide z-30" />
-            )}
-          </button>
+         <button
+  onClick={scrollToGallery}
+  className="
+    group relative overflow-hidden
+    w-full sm:w-105 h-14 rounded-xl
+    font-semibold text-white
+    bg-[#181818]
+    border border-[#ff8c42]/20
+    shadow-lg shadow-[#ff8c42]/10
+    transition-all duration-300
+    hover:scale-105
+    hover:shadow-[0_0_35px_rgba(255,140,66,0.65)]
+  "
+>
+  <div
+    className={`
+      absolute inset-0
+      bg-linear-to-r
+      from-[#ffb36b]
+      via-[#ff9a3d]
+      to-[#ff7a18]
+      origin-left z-0
+      transition-transform duration-1000 ease-in-out
+      ${fillButton ? "scale-x-100" : "scale-x-0"}
+    `}
+  />
+
+  <span className="relative z-20 flex items-center justify-center gap-3 h-full">
+    <Sparkles
+      size={18}
+      className="group-hover:rotate-12 transition-transform duration-300"
+    />
+    View Transformations
+    <span className="transition-transform duration-300 group-hover:translate-x-2">
+      →
+    </span>
+  </span>
+
+  {animateBike && (
+    <Bike
+      size={28}
+      className="absolute top-1/2 -translate-y-1/2 text-orange-500 animate-bikeRide z-30"
+    />
+  )}
+</button>
 
           {/* Secondary CTA */}
           <motion.div whileHover={{ borderColor: "rgba(249,115,22,1)" }} transition={{ duration: 0.2 }}>

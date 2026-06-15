@@ -120,7 +120,7 @@ export default function HeroComp() {
               className="
                 group relative overflow-hidden w-full sm:w-120 h-14 rounded-xl
                 font-semibold text-white
-                bg-linear-to-r from-[#0f172a] via-[#1e293b] to-[#334155]
+                bg-[#181818] border border-[#ff8c42]/20
                 shadow-lg shadow-blue-500/20
                 transition-all duration-300
                 hover:scale-105
@@ -130,7 +130,7 @@ export default function HeroComp() {
               <div
                 className={`
                   absolute inset-0
-                  bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]
+                  bg-linear-to-r from-[#ffb36b] via-[#ff9a3d] to-[#ff7a18]
                   origin-left z-0
                   transition-transform duration-1300 ease-in-out
                   ${fillButton ? "scale-x-100" : "scale-x-0"}
@@ -142,7 +142,10 @@ export default function HeroComp() {
                 <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-2" />
               </span>
               {animateBike && (
-                <Bike size={30} className="absolute top-1/2 -translate-y-1/2 animate-bikeRide z-30" />
+                <Bike
+  size={30}
+  className="absolute top-1/2 -translate-y-1/2 text-orange-500 animate-bikeRide z-30"
+/>
               )}
             </button>
           </motion.div>
