@@ -67,7 +67,7 @@ export default function Loader({ onComplete }) {
           key="loader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.55, ease: E_OUT } }}
-          className="fixed inset-0 z-[9999] bg-[#0e0e0e] flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-9999 bg-[#0e0e0e] flex flex-col items-center justify-center overflow-hidden"
         >
           {/* ── Ambient radial glow – static, cheap ── */}
           <div
@@ -86,7 +86,7 @@ export default function Loader({ onComplete }) {
             animate={{ scaleX: 1, opacity: [0.18, 0.08, 0] }}
             transition={{ duration: 1.8, ease: E_EXPO, delay: 0.2 }}
             style={{ originX: 0 }}
-            className="pointer-events-none absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent"
+            className="pointer-events-none absolute top-1/2 left-0 w-full h-px bg-linear-to-r from-transparent via-orange-500 to-transparent"
           />
 
           {/* ── Central content ── */}
@@ -189,7 +189,7 @@ export default function Loader({ onComplete }) {
             {/* Progress bar + percentage */}
             <div className="w-64 sm:w-80 flex flex-col gap-2.5">
               {/* Track */}
-              <div className="relative w-full h-[3px] rounded-full bg-white/5 overflow-hidden">
+              <div className="relative w-full h-0.75 rounded-full bg-white/5 overflow-hidden">
                 <motion.div
                   className="absolute inset-y-0 left-0 rounded-full"
                   style={{
