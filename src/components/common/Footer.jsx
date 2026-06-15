@@ -125,7 +125,7 @@ export default function Footer() {
     rounded-xl
     font-semibold
     text-white
-    bg-gradient-to-r
+    bg-linear-to-r
     from-[#0f172a]
     via-[#1e293b]
     to-[#334155]
@@ -142,7 +142,7 @@ export default function Footer() {
       absolute
       inset-0
       -translate-x-full
-      bg-gradient-to-r
+      bg-linear-to-r
       from-transparent
       via-white/20
       to-transparent
