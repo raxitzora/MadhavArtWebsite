@@ -6,8 +6,8 @@ import { HiMenu, HiX } from "react-icons/hi";
 
 const NAV_LINKS = [
   { name: "Home",     path: "/" },
+    { name: "Gallery",  path: "/gallery" },
   { name: "Services", path: "/services" },
-  { name: "Gallery",  path: "/gallery" },
   { name: "About",    path: "/about" },
   { name: "Contact",  path: "/contact" },
 ];

@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 import Navbar from "./components/common/Navbar";
 import Loader from "./components/common/Loader";
@@ -12,23 +12,13 @@ import ContactPage from "./pages/ContactPage/ContactPage.jsx";
 import "./App.css";
 
 function App() {
-  const [loaderDone, setLoaderDone] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <>
-      {/* Loader — sits on top, unmounts after 4s */}
-      <AnimatePresence>
-        {!loaderDone && (
-          <Loader onComplete={() => setLoaderDone(true)} />
-        )}
-      </AnimatePresence>
+      {!loaded && <Loader onComplete={() => setLoaded(true)} />}
 
-      {/*
-        Navbar + Routes only mount AFTER loader finishes.
-        This ensures useInView in every section fires fresh
-        when the user actually sees the page.
-      */}
-      {loaderDone && (
+      {loaded && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -41,7 +31,6 @@ function App() {
             <Route path="/gallery"  element={<GalleryPage />} />
             <Route path="/about"    element={<AboutPage />} />
             <Route path="/contact"  element={<ContactPage />} />
-            
           </Routes>
         </motion.div>
       )}
