@@ -141,6 +141,8 @@ const RealisticMotorcycleSVG = ({
         "sepia(1) saturate(8) hue-rotate(-15deg) brightness(1.1)"
     }}
   />
+  
+  
 </g>
   
 
