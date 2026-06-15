@@ -97,7 +97,7 @@ function ServiceRow({ service, reverse }) {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={{ duration: 0.45, ease: E, delay: 0.15 }}
-          className="font-bebas text-2xl sm:text-3xl font-extrabold leading-snug -tracking-tighter"
+          className="font-bebas text-2xl sm:text-3xl font-extrabold leading-snug tracking-wider"
         >
           {title}
         </motion.h3>
@@ -155,7 +155,7 @@ function ServiceRow({ service, reverse }) {
         initial={{ opacity: 0, x: imageX }}
         animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: imageX }}
         transition={{ duration: 0.55, ease: E }}
-        className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-[420px] overflow-hidden"
+        className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-105 overflow-hidden"
         style={{ willChange: "transform" }}
       >
         <motion.img
