@@ -156,7 +156,7 @@ export default function GalleryImages() {
               />
 
               {/* Hover overlay — pure CSS, zero JS cost */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -184,7 +184,7 @@ export default function GalleryImages() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[100] bg-black/92 flex items-center justify-center px-4"
+            className="fixed inset-0 z-100 bg-black/92 flex items-center justify-center px-4"
             onClick={() => setLightbox(null)}
           >
             <motion.div

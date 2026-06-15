@@ -44,7 +44,7 @@ export default function GalleryHeroComp() {
       />
 
       {/* Overlay — centre-focused so text on all sides stays readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/55 to-black/75" />
       <div className="absolute inset-0 bg-black/30" />
 
       {/* ── Main content — centred ── */}
@@ -105,9 +105,9 @@ export default function GalleryHeroComp() {
             onClick={scrollToGallery}
             className="
               group relative overflow-hidden
-              w-full sm:w-[420px] h-14 rounded-xl
+              w-full sm:w-105 h-14 rounded-xl
               font-semibold text-white
-              bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#334155]
+              bg-linear-to-r from-[#0f172a] via-[#1e293b] to-[#334155]
               shadow-lg shadow-blue-500/20
               transition-all duration-300
               hover:scale-105
@@ -117,9 +117,9 @@ export default function GalleryHeroComp() {
             <div
               className={`
                 absolute inset-0
-                bg-gradient-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]
+                bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]
                 origin-left z-0
-                transition-transform duration-[1000ms] ease-in-out
+                transition-transform duration-1000 ease-in-out
                 ${fillButton ? "scale-x-100" : "scale-x-0"}
               `}
             />

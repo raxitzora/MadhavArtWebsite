@@ -3,7 +3,7 @@ import GalleryImages from "../../components/GalleryPageComponents/GalleryImages"
 
 const GalleryPage = () => {
   return (
-    <main className="pt-[72px]">
+    <main className="pt-18">
       <GalleryHeroComp />
       <GalleryImages />
     </main>
