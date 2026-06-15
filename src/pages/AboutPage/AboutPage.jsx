@@ -1,7 +1,13 @@
+import Introduction from "../../components/AboutPageComponents/Introduction"
+import Footer from "../../components/common/Footer"
 
 const AboutPage = () => {
   return (
-    <div>AboutPage</div>
+    <main>
+      <Introduction />
+      <Footer />
+
+    </main>
   )
 }
 
