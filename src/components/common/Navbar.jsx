@@ -49,9 +49,9 @@ export default function Navbar() {
         }`}
       >
         {/* Subtle orange accent line at bottom of navbar */}
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-orange-500/30 to-transparent" />
 
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex items-center justify-between h-[72px]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex items-center justify-between h-18">
 
           {/* Logo */}
           <NavLink to="/" onClick={closeMenu} className="flex items-center gap-3 shrink-0">
@@ -77,7 +77,7 @@ export default function Navbar() {
                   <>
                     {name}
                     {/* Animated underline */}
-                    <span className={`absolute -bottom-1 left-0 h-[2px] rounded-full bg-orange-500 transition-all duration-300 ${
+                    <span className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-orange-500 transition-all duration-300 ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`} />
                   </>
@@ -151,7 +151,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y:  0 }}
               exit={{    opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-[72px] left-0 right-0 z-50 lg:hidden bg-[#0d0d0d] border-b border-white/8 shadow-[0_16px_48px_rgba(0,0,0,0.65)]"
+              className="fixed top-18 left-0 right-0 z-50 lg:hidden bg-[#0d0d0d] border-b border-white/8 shadow-[0_16px_48px_rgba(0,0,0,0.65)]"
             >
               {/* Nav links */}
               <ul className="flex flex-col px-5 pt-4 pb-2">
@@ -173,7 +173,7 @@ export default function Navbar() {
                     >
                       {({ isActive }) => (
                         <>
-                          <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-200 ${
+                          <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-200 ${
                             isActive ? "bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.9)]" : "bg-gray-600"
                           }`} />
                           {name}
