@@ -42,7 +42,7 @@ export default function OurWorkComp() {
       text-center
       font-extrabold
       leading-[0.95]
-      tracking-[0.05em]
+      tracking-wider
       uppercase
     "
     style={{
@@ -66,7 +66,7 @@ export default function OurWorkComp() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-2xl group aspect-[4/3] lg:aspect-auto"
+          className="relative overflow-hidden rounded-2xl group aspect-4/3 lg:aspect-auto"
         >
           <img
             src={FEATURED.img}
@@ -75,7 +75,7 @@ export default function OurWorkComp() {
           />
 
           {/* Bottom-left label overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
           <div className="absolute bottom-5 left-5">
             <p className="text-[10px] font-bold tracking-[0.18em] text-orange-500 uppercase mb-1">
               {FEATURED.eyebrow}
@@ -102,7 +102,7 @@ export default function OurWorkComp() {
               />
 
               {/* Gradient + label */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent" />
               <p className="absolute bottom-3 left-3 text-[11px] sm:text-xs font-bold tracking-wide text-white">
                 {label}
               </p>

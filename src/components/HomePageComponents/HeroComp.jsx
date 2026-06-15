@@ -42,12 +42,12 @@ export default function HeroComp() {
   const gridInView = useInView(gridRef, { once: true, amount: 0 });
 
   return (
-    <section className="relative w-full min-h-screen bg-[#111111] text-white overflow-hidden px-4 sm:px-8 lg:px-14 pt-[90px] pb-10 lg:pb-16 flex items-center">
+    <section className="relative w-full min-h-screen bg-[#111111] text-white overflow-hidden px-4 sm:px-8 lg:px-14 pt-22.5 pb-10 lg:pb-16 flex items-center">
 
       {/* Ambient glow */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-40 top-1/3 w-[500px] h-[500px] rounded-full opacity-10"
+        className="pointer-events-none absolute -left-40 top-1/3 w-125 h-125 rounded-full opacity-10"
         style={{ background: "radial-gradient(circle, #ff6a00 0%, transparent 70%)" }}
       />
 
@@ -77,7 +77,7 @@ export default function HeroComp() {
               animate={leftInView ? { scaleX: 1 } : { scaleX: 0 }}
               transition={{ duration: 0.5, ease: E, delay: 0.15 }}
               style={{ originX: 0, display: "block" }}
-              className="w-8 h-px bg-gradient-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]"
+              className="w-8 h-px bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]"
             />
             <span className="text-[10px] font-semibold tracking-[0.2em] text-orange-500 uppercase">
               Vehicle Customization Workshop
@@ -118,9 +118,9 @@ export default function HeroComp() {
                 setTimeout(() => navigate("/gallery"), 1300);
               }}
               className="
-                group relative overflow-hidden w-full sm:w-[480px] h-14 rounded-xl
+                group relative overflow-hidden w-full sm:w-120 h-14 rounded-xl
                 font-semibold text-white
-                bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#334155]
+                bg-linear-to-r from-[#0f172a] via-[#1e293b] to-[#334155]
                 shadow-lg shadow-blue-500/20
                 transition-all duration-300
                 hover:scale-105
@@ -130,9 +130,9 @@ export default function HeroComp() {
               <div
                 className={`
                   absolute inset-0
-                  bg-gradient-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]
+                  bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]
                   origin-left z-0
-                  transition-transform duration-[1300ms] ease-in-out
+                  transition-transform duration-1300 ease-in-out
                   ${fillButton ? "scale-x-100" : "scale-x-0"}
                 `}
               />
@@ -154,9 +154,9 @@ export default function HeroComp() {
             className="flex flex-wrap gap-2 mt-2"
           >
             <div className="w-full flex items-center gap-3 mb-2">
-              <div className="h-[2px] w-10 bg-gradient-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]" />
+              <div className="h-0.5 w-10 bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]" />
               <h3 className="text-sm font-bold tracking-[0.15em] uppercase text-white">What We Do</h3>
-              <div className="h-[2px] flex-1 bg-gradient-to-r from-[#ff8c42]/50 to-transparent" />
+              <div className="h-0.5 flex-1 bg-linear-to-r from-[#ff8c42]/50 to-transparent" />
             </div>
 
             {SERVICES.map((s, i) => (
@@ -200,7 +200,7 @@ export default function HeroComp() {
         <div ref={gridRef} className="w-full flex flex-col gap-3">
 
           {/* TOP ROW — 3 small preview cards */}
-          <div className="grid grid-cols-3 gap-3 h-[140px] sm:h-[180px] lg:h-[200px]">
+          <div className="grid grid-cols-3 gap-3 h-35 sm:h-45 lg:h-50">
             <ImageCell
               img={IMAGES.radiumArt}
               label="Custom Art"
@@ -231,7 +231,7 @@ export default function HeroComp() {
           <BeforeAfterSlider
             before={IMAGES.beforeBike}
             after={IMAGES.afterBike}
-            className="rounded-xl w-full h-[240px] sm:h-[320px] lg:h-[420px]"
+            className="rounded-xl w-full h-60 sm:h-80 lg:h-105"
             inView={gridInView}
             index={3}
           />
@@ -298,7 +298,7 @@ function BeforeAfterSlider({ before, after, className = "", inView, index = 0 })
 
       {/* Divider line */}
       <div
-        className="absolute inset-y-0 w-[2px] bg-white z-20 shadow-[0_0_12px_rgba(255,255,255,0.9)] cursor-ew-resize"
+        className="absolute inset-y-0 w-0.5 bg-white z-20 shadow-[0_0_12px_rgba(255,255,255,0.9)] cursor-ew-resize"
         style={{ left: `${position}%`, transform: "translateX(-50%)" }}
       >
         {/* Knob */}
@@ -372,7 +372,7 @@ function ImageCell({ img, label, imageFit = "cover", labelPos = "bottom", classN
       {/* Dark overlay on hover */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 pointer-events-none" />
       {/* Subtle gradient at bottom always */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-linear-to-t from-black/60 to-transparent pointer-events-none" />
       {label && (
         <span
           className={`

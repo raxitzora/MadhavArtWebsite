@@ -62,7 +62,7 @@ export default function WhyMadhavArtComp() {
             <motion.h2
               variants={fadeUp} custom={0.08}
               initial="hidden" animate={headerInView ? "visible" : "hidden"}
-              className="font-bebas font-extrabold uppercase text-center leading-[0.9] tracking-[0.02em] break-words"
+              className="font-bebas font-extrabold uppercase text-center leading-[0.9] tracking-[0.02em] wrap-break-words"
               style={{ fontSize: "clamp(2.5rem, 8vw, 7rem)" }}
             >
               More Than Customization.
@@ -103,7 +103,7 @@ export default function WhyMadhavArtComp() {
                 style={{ willChange: "transform" }}
               >
                 {/* Image */}
-                <div className="h-[240px] overflow-hidden">
+                <div className="h-60 overflow-hidden">
                   <img
                     src={card.image}
                     alt={card.title}
