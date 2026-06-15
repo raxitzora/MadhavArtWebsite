@@ -2,16 +2,15 @@ import { motion } from "framer-motion";
 
 // ─── Gallery data – swap image paths with your /public/assets/ files ──────────
 const FEATURED = {
-  img:      "/assets/bike-restoration.jpg",
+  img:      "/assets/ourworkimages/bike-restoration.png",
   eyebrow:  "Before / After",
   title:    "Bike Restoration",
 };
 
 const GRID = [
-  { img: "/assets/radium-art.jpg",          label: "Radium Art"           },
-  { img: "/assets/car-graphics.jpg",        label: "Car Graphics"         },
-  { img: "/assets/color-transformation.jpg",label: "Color Transformation" },
-  { img: "/assets/custom-design.jpg",       label: "Custom Design"        },
+  { img: "/assets/ourworkimages/radium-art.png",label: "Radium Art"},
+  { img: "/assets/ourworkimages/color-transformation.png",label: "Color Transformation" },
+  { img: "/assets/ourworkimages/custom-design.png",       label: "Custom Design"},
 ];
 
 // Shared fade-up for scroll-triggered reveals
@@ -58,59 +57,98 @@ export default function OurWorkComp() {
 </motion.div>
 
       {/* ── Gallery: large featured left + 2×2 grid right ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-3">
+     {/* ── Gallery: large featured left + 2×2 grid right ── */}
+<div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-        {/* Featured large card */}
-        <motion.div
-          variants={fadeUp(0.1)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-2xl group aspect-4/3 lg:aspect-auto"
-        >
+  {/* Featured Project */}
+  <motion.div
+    variants={fadeUp(0.1)}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true }}
+    className="lg:col-span-8 relative overflow-hidden rounded-3xl bg-[#0c0c0c] border border-white/5 group"
+  >
+    <div className="h-75 sm:h-112.5 lg:h-162.5 flex items-center justify-center p-4">
+      <img
+        src={FEATURED.img}
+        alt={FEATURED.title}
+        className="
+          w-full
+          h-full
+          object-contain
+          transition-all
+          duration-700
+          group-hover:scale-105
+        "
+      />
+    </div>
+
+    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
+
+    <div className="absolute bottom-6 left-6">
+      <p className="text-orange-500 uppercase tracking-[0.25em] text-xs font-bold mb-2">
+        {FEATURED.eyebrow}
+      </p>
+
+      <h3 className="font-bebas text-3xl md:text-5xl tracking-wider">
+        {FEATURED.title}
+      </h3>
+    </div>
+  </motion.div>
+
+  {/* Right Side Cards */}
+  <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+
+    {GRID.map(({ img, label }, i) => (
+      <motion.div
+        key={label}
+        variants={fadeUp(0.15 + i * 0.08)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="
+          relative
+          overflow-hidden
+          rounded-3xl
+          bg-[#0c0c0c]
+          border
+          border-white/5
+          group
+        "
+      >
+        <div className="h-65 sm:h-80 lg:h-75 flex items-center justify-center p-4">
           <img
-            src={FEATURED.img}
-            alt={FEATURED.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            src={img}
+            alt={label}
+            className="
+              w-full
+              h-full
+              object-contain
+              transition-all
+              duration-700
+              group-hover:scale-105
+            "
           />
-
-          {/* Bottom-left label overlay */}
-          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
-          <div className="absolute bottom-5 left-5">
-            <p className="text-[10px] font-bold tracking-[0.18em] text-orange-500 uppercase mb-1">
-              {FEATURED.eyebrow}
-            </p>
-            <h3 className="text-xl font-extrabold text-white">{FEATURED.title}</h3>
-          </div>
-        </motion.div>
-
-        {/* 2×2 small cards grid */}
-        <div className="grid grid-cols-2 gap-3">
-          {GRID.map(({ img, label }, i) => (
-            <motion.div
-              key={label}
-              variants={fadeUp(0.15 + i * 0.08)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="relative overflow-hidden rounded-xl group aspect-square"
-            >
-              <img
-                src={img}
-                alt={label}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-
-              {/* Gradient + label */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent" />
-              <p className="absolute bottom-3 left-3 text-[11px] sm:text-xs font-bold tracking-wide text-white">
-                {label}
-              </p>
-            </motion.div>
-          ))}
         </div>
 
-      </div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
+
+        <p className="
+          absolute
+          bottom-4
+          left-4
+          text-white
+          font-semibold
+          text-sm
+          sm:text-base
+        ">
+          {label}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+
+</div>
     </section>
   );
 }

@@ -4,21 +4,21 @@ import { motion, useInView } from "motion/react";
 
 const cards = [
   {
-    image: "/assets/custom-design.jpg",
+    image: "/assets/whymadhavartimages/custom-design.png",
     icon: Sparkles,
     title: "Custom Designs",
     description:
       "Every vehicle receives unique design treatment tailored to the owner's personality and vision.",
   },
   {
-    image: "/assets/detail-work.jpg",
+    image: "/assets/whymadhavartimages/detail-work.png",
     icon: Eye,
     title: "Attention to Detail",
     description:
-      "Professional finishing, clean application, and quality workmanship on every single project.",
+      "Professional finishing and quality workmanship on every single vehicle.",
   },
   {
-    image: "/assets/restoration.jpg",
+    image: "/assets/whymadhavartimages/restoration.png",
     icon: RefreshCcw,
     title: "Restore & Revive",
     description:
