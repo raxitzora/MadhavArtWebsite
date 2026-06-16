@@ -2,39 +2,14 @@ import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { HiX, HiOutlineArrowRight } from "react-icons/hi";
 import { MdFilterList } from "react-icons/md";
+import { useEffect } from "react";
+import axios from "axios";
 
-// ─── Gallery data ─────────────────────────────────────────────────────────────
-const ALL_ITEMS = [
-  { id: 1,  cat: "radium-art",      img: "/assets/gallery/radium-1.jpg",   title: "Neon Skulls Radium Art",   label: "Radium Art" },
-  { id: 2,  cat: "radium-art",      img: "/assets/gallery/radium-2.jpg",   title: "Flame Radium Tank",        label: "Radium Art" },
-  { id: 3,  cat: "radium-art",      img: "/assets/gallery/radium-3.jpg",   title: "Galaxy Glow Art",          label: "Radium Art" },
-  { id: 4,  cat: "radium-art",      img: "/assets/gallery/radium-4.jpg",   title: "Dragon Radium Design",     label: "Radium Art" },
-  { id: 5,  cat: "graphics",        img: "/assets/gallery/graphics-1.jpg", title: "Tiger Stripe Graphics",    label: "Bike Graphics" },
-  { id: 6,  cat: "graphics",        img: "/assets/gallery/graphics-2.jpg", title: "Carbon Tribal Kit",        label: "Bike Graphics" },
-  { id: 7,  cat: "graphics",        img: "/assets/gallery/graphics-3.jpg", title: "Lightning Wrap",           label: "Bike Graphics" },
-  { id: 8,  cat: "graphics",        img: "/assets/gallery/graphics-4.jpg", title: "Matte Black Stripes",      label: "Bike Graphics" },
-  { id: 9,  cat: "customize-bikes", img: "/assets/gallery/bike-1.jpg",     title: "Royal Blue Restoration",   label: "Color Restoration" },
-  { id: 10, cat: "customize-bikes", img: "/assets/gallery/bike-2.jpg",     title: "Cafe Racer Makeover",      label: "Color Restoration" },
-  { id: 11, cat: "customize-bikes", img: "/assets/gallery/bike-3.jpg",     title: "Chrome Chopper Build",     label: "Color Restoration" },
-  { id: 12, cat: "customize-bikes", img: "/assets/gallery/bike-4.jpg",     title: "Vintage Bobber Restore",   label: "Color Restoration" },
-  { id: 13, cat: "vehicle-touchup", img: "/assets/gallery/touchup-1.jpg",  title: "White Pearl Makeover",     label: "Vehicle Touch-Up" },
-  { id: 14, cat: "vehicle-touchup", img: "/assets/gallery/touchup-2.jpg",  title: "Matte War Machine",        label: "Cars" },
-  { id: 15, cat: "vehicle-touchup", img: "/assets/gallery/touchup-3.jpg",  title: "Scooter Pearl Finish",     label: "Vehicle Touch-Up" },
-  { id: 16, cat: "vehicle-touchup", img: "/assets/gallery/touchup-4.jpg",  title: "Jeep Matte Wrap",          label: "Cars" },
-  { id: 17, cat: "custom-designs",  img: "/assets/gallery/custom-1.jpg",   title: "Dragon Body Art",          label: "Custom Designs" },
-  { id: 18, cat: "custom-designs",  img: "/assets/gallery/custom-2.jpg",   title: "Samurai Tank Art",         label: "Custom Designs" },
-  { id: 19, cat: "custom-designs",  img: "/assets/gallery/custom-3.jpg",   title: "Phoenix Wing Design",      label: "Custom Designs" },
-  { id: 20, cat: "custom-designs",  img: "/assets/gallery/custom-4.jpg",   title: "Mandala Fuel Tank",        label: "Custom Designs" },
-];
 
-const TABS = [
-  { key: "all",             label: "All Work",         count: ALL_ITEMS.length },
-  { key: "radium-art",      label: "Radium Art",       count: ALL_ITEMS.filter(i => i.cat === "radium-art").length },
-  { key: "graphics",        label: "Graphics",         count: ALL_ITEMS.filter(i => i.cat === "graphics").length },
-  { key: "customize-bikes", label: "Customize Bikes",  count: ALL_ITEMS.filter(i => i.cat === "customize-bikes").length },
-  { key: "vehicle-touchup", label: "Vehicle Touch-Up", count: ALL_ITEMS.filter(i => i.cat === "vehicle-touchup").length },
-  { key: "custom-designs",  label: "Custom Designs",   count: ALL_ITEMS.filter(i => i.cat === "custom-designs").length },
-];
+
+
+
+
 
 const E = [0.25, 0.46, 0.45, 0.94];
 
@@ -47,21 +22,107 @@ const gridItem = {
 };
 
 export default function GalleryImages() {
+
+
+  
   const [activeTab, setActiveTab] = useState("all");
   const [lightbox,  setLightbox]  = useState(null);
-
+const [selectedVariant, setSelectedVariant] = useState(0);
+const [allItems, setAllItems] = useState([]);
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-40px" });
+    const TABS = [
+  {
+    key: "all",
+    label: "All Work",
+    count: allItems.length,
+  },
+  {
+    key: "radium-art",
+    label: "Radium Art",
+    count: allItems.filter(
+      (i) => i.cat === "radium-art"
+    ).length,
+  },
+  {
+    key: "graphics",
+    label: "Graphics",
+    count: allItems.filter(
+      (i) => i.cat === "graphics"
+    ).length,
+  },
+  {
+    key: "customize-bikes",
+    label: "Customize Bikes",
+    count: allItems.filter(
+      (i) => i.cat === "customize-bikes"
+    ).length,
+  },
+  {
+    key: "vehicle-touchup",
+    label: "Vehicle Touch-Up",
+    count: allItems.filter(
+      (i) => i.cat === "vehicle-touchup"
+    ).length,
+  },
+  {
+    key: "custom-designs",
+    label: "Custom Designs",
+    count: allItems.filter(
+      (i) => i.cat === "custom-designs"
+    ).length,
+  },
+];
 
-  const items = activeTab === "all"
-    ? ALL_ITEMS
-    : ALL_ITEMS.filter(i => i.cat === activeTab);
+useEffect(() => {
+  fetchGallery();
+}, []);
 
-  const navigateLightbox = useCallback((dir) => {
-    const idx  = items.findIndex(i => i.id === lightbox.id);
-    const next = (idx + dir + items.length) % items.length;
-    setLightbox(items[next]);
-  }, [items, lightbox]);
+const fetchGallery = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:5000/api/gallery"
+    );
+
+    const formattedData =
+      res.data.data.map((item) => ({
+        id: item._id,
+
+        cat: item.category,
+
+        img: item.thumbnail.url,
+
+        title: item.title,
+
+        label: item.label,
+
+        variants:
+          item.variants?.map(
+            (v) => v.url
+          ) || [],
+      }));
+
+    setAllItems(formattedData);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+const items =
+  activeTab === "all"
+    ? allItems
+    : allItems.filter(
+        (i) => i.cat === activeTab
+      );
+
+const navigateLightbox = useCallback((dir) => {
+  const idx = items.findIndex(i => i.id === lightbox.id);
+  const next = (idx + dir + items.length) % items.length;
+
+  setLightbox(items[next]);
+  setSelectedVariant(0);
+}, [items, lightbox]);
 
   return (
     <section
@@ -143,7 +204,10 @@ export default function GalleryImages() {
               initial="hidden"
               animate="show"
               exit="exit"
-              onClick={() => setLightbox(item)}
+             onClick={()=>{
+              setLightbox(item);
+              setSelectedVariant(0);
+             }}
               className="relative group cursor-pointer overflow-hidden rounded-xl aspect-square bg-[#1a1a1a]"
             >
               <img
@@ -195,11 +259,36 @@ export default function GalleryImages() {
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-4xl w-full max-h-[90vh] flex flex-col"
             >
-              <img
-                src={lightbox.img}
-                alt={lightbox.title}
-                className="w-full max-h-[80vh] object-contain rounded-xl"
-              />
+             <img
+  src={
+    lightbox.variants
+      ? lightbox.variants[selectedVariant]
+      : lightbox.img
+  }
+  alt={lightbox.title}
+  className="w-full max-h-[80vh] object-contain rounded-xl"
+/>
+{lightbox.variants && (
+  <div className="flex flex-wrap justify-center gap-3 mt-4">
+    {lightbox.variants.map((variant, index) => (
+      <button
+        key={index}
+        onClick={() => setSelectedVariant(index)}
+        className={`overflow-hidden rounded-lg border-2 transition-all ${
+          selectedVariant === index
+            ? "border-orange-500 scale-105"
+            : "border-white/20"
+        }`}
+      >
+        <img
+          src={variant}
+          alt={`Variant ${index + 1}`}
+          className="w-20 h-20 object-cover"
+        />
+      </button>
+    ))}
+  </div>
+)}
 
               <div className="flex items-center justify-between mt-3 px-1">
                 <div>

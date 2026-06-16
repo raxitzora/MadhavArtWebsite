@@ -269,7 +269,7 @@ export default function Loader({ onComplete }) {
     const TOTAL = 11000;
 const sceneBreaks = [
   0,
-  1500, // Welcome
+  0, // Welcome
   3000, // Cleaning
   5000, // Painting
   7500, // Graphics

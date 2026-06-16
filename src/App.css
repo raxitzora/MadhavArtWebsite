@@ -79,3 +79,18 @@
   z-index: 2000;
   pointer-events: none;
 }
+
+
+
+
+
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
