@@ -39,7 +39,43 @@
 
 .animate-arrowMove {
   animation: arrowMove 1.5s ease-in-out infinite;
+
 }
 
 
 
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+
+  width: 60px;
+  height: 60px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ff7a00;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 1000;
+
+  padding: 0;
+  line-height: 1;
+}
+
+.bike-animation {
+  position: fixed;
+  right: 35px;
+  bottom: 90px;
+
+  color: #ff7a00;
+
+  z-index: 2000;
+  pointer-events: none;
+}
