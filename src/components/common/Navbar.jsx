@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { BiPhone } from "react-icons/bi";
 import { HiMenu, HiX } from "react-icons/hi";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 const NAV_LINKS = [
   { name: "Home",     path: "/" },
@@ -87,26 +88,68 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop right: phone + CTA */}
-          <div className="hidden lg:flex items-center gap-6">
-            <a href="tel:+91 9624196196" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-200">
-              {/* Phone icon rings on interval */}
-              <motion.span
-                animate={{ rotate: [0, 15, -15, 0] }}
-                transition={{ repeat: Infinity, repeatDelay: 5, duration: 0.55 }}
-                className="text-orange-500"
-              >
-                <BiPhone size={20} />
-              </motion.span>
-              <span className="font-semibold text-sm">+91 9624196196</span>
-            </a>
+         <div className="hidden lg:flex items-center gap-4">
+  <a
+    href="tel:+91 9624196196"
+    className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-200"
+  >
+    <motion.span
+      animate={{ rotate: [0, 15, -15, 0] }}
+      transition={{
+        repeat: Infinity,
+        repeatDelay: 5,
+        duration: 0.55,
+      }}
+      className="text-orange-500"
+    >
+      <BiPhone size={20} />
+    </motion.span>
 
-            <NavLink
-              to="/contact"
-              className="bg-orange-500 hover:bg-orange-400 text-black font-bold text-sm px-6 py-2.5 rounded-full shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all duration-200"
-            >
-              Get a Quote
-            </NavLink>
-          </div>
+    <span className="font-semibold text-sm">
+      +91 9624196196
+    </span>
+  </a>
+
+  <NavLink
+    to="/admin/login"
+    className="
+    border
+    border-orange-500/40
+    text-orange-500
+    hover:bg-orange-500
+    hover:text-black
+    font-bold
+    text-sm
+    px-5
+    py-2.5
+    rounded-full
+    transition-all
+    duration-200
+    "
+  >
+    Admin Panel
+  </NavLink>
+
+  <NavLink
+    to="/contact"
+    className="
+    bg-orange-500
+    hover:bg-orange-400
+    text-black
+    font-bold
+    text-sm
+    px-6
+    py-2.5
+    rounded-full
+    shadow-[0_0_20px_rgba(249,115,22,0.4)]
+    hover:shadow-[0_0_30px_rgba(249,115,22,0.6)]
+    transition-all
+    duration-200
+    "
+  >
+    Get a Quote
+  </NavLink>
+</div>
 
           {/* Mobile hamburger */}
           <motion.button
@@ -195,6 +238,7 @@ export default function Navbar() {
                   <BiPhone size={17} className="text-orange-500" />
                   +91 9624196196
                 </a>
+  
                 <NavLink
                   to="/contact"
                   onClick={closeMenu}
@@ -202,6 +246,28 @@ export default function Navbar() {
                 >
                   Get a Quote
                 </NavLink>
+                             <NavLink
+  to="/admin/login"
+  onClick={closeMenu}
+  className="
+  flex items-center
+  justify-center
+  w-11
+  h-11
+  rounded-full
+  bg-orange-500/10
+  border
+  border-orange-500/30
+  text-orange-500
+  hover:bg-orange-500
+  hover:text-black
+  hover:scale-105
+  transition-all
+  duration-300
+  "
+>
+  <MdAdminPanelSettings size={22} />
+</NavLink>
               </div>
             </motion.div>
           </>
