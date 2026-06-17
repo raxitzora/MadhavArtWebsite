@@ -282,7 +282,7 @@ border-white/5
   decoding="async"
   className="
 w-full
-aspect-4/3
+aspect-[4/2.8]
 object-cover
 transition-transform
 duration-500
@@ -294,54 +294,49 @@ group-hover:scale-[1.02]
 />
 
               {/* Hover overlay — pure CSS, zero JS cost */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-              {/* Caption */}
-        <div className="absolute top-0 left-0 right-0 p-4 bg-linear-to-b from-black/90 via-black/60 to-transparent">
-
-  <p className="text-orange-500 text-xs font-bold uppercase tracking-[0.2em]">
-    {item.label}
-  </p>
-
-  <h3 className="text-white text-lg sm:text-xl font-bold mt-1">
-    {item.title}
-  </h3>
-
-</div>
-
-              {/* Arrow icon */}
-  <div
+<div
   className="
-  absolute
-  left-4
-  bottom-4
-  w-12
-  h-12
-  rounded-full
-  bg-black/60
-  backdrop-blur-md
-  border
-  border-white/10
   flex
   items-center
-  justify-center
-  transition-all
-  duration-300
-  group-hover:border-orange-500/50
-  group-hover:scale-105
+  justify-between
+  p-4
+  bg-[#151515]
 "
 >
-  <HiOutlineArrowRight
-    size={20}
+  <div className="min-w-0">
+    <p className="text-orange-500 text-[11px] font-bold uppercase tracking-[0.18em]">
+      {item.label}
+    </p>
+
+    <h3 className="text-white text-lg font-semibold truncate mt-1">
+      {item.title}
+    </h3>
+  </div>
+
+  <div
     className="
+    shrink-0
+    ml-4
+    w-10
+    h-10
+    rounded-lg
+    border
+    border-white/10
+    flex
+    items-center
+    justify-center
     text-white
-    -rotate-45
-    transition-transform
+    transition-all
     duration-300
-    group-hover:translate-x-0.5
-    group-hover:-translate-y-0.5
+    group-hover:border-orange-500
+    group-hover:text-orange-500
     "
-  />
+  >
+    <HiOutlineArrowRight
+      size={18}
+      className="-rotate-45"
+    />
+  </div>
 </div>
             </motion.div>
           ))}
