@@ -34,6 +34,10 @@ function LoadingOverlay({ message = "Loading..." }) {
   );
 }
 
+
+
+
+
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
 export default function Dashboard() {
@@ -42,6 +46,28 @@ export default function Dashboard() {
   const [loading, setLoading]           = useState(true);
   const [deleting, setDeleting]         = useState(false);
   const [modal, setModal]               = useState({ type: null, item: null });
+const [activeFilter, setActiveFilter] =
+  useState("all");
+
+
+const getCount = (category) => {
+  if (category === "all")
+    return galleryItems.length;
+
+  return galleryItems.filter(
+    (item) =>
+      item.category === category
+  ).length;
+};
+
+const filteredItems =
+  activeFilter === "all"
+    ? galleryItems
+    : galleryItems.filter(
+        (item) =>
+          item.category === activeFilter
+      );
+
 
   const openModal  = (type, item = null) => setModal({ type, item });
   const closeModal = () => setModal({ type: null, item: null });
@@ -79,6 +105,33 @@ export default function Dashboard() {
   };
 
   useEffect(() => { fetchGallery(); }, []);
+const FILTERS = [
+  {
+    label: "All Work",
+    value: "all",
+  },
+  {
+    label: "Radium Art",
+    value: "radium-art",
+  },
+  {
+    label: "Graphics",
+    value: "graphics",
+  },
+  {
+    label: "Customize Bikes",
+    value: "customize-bikes",
+  },
+  {
+    label: "Vehicle Touch-Up",
+    value: "vehicle-touchup",
+  },
+  {
+    label: "Custom Designs",
+    value: "custom-designs",
+  },
+];
+
 
   return (
     <div className="min-h-screen bg-[#111111] text-white px-4 sm:px-8 lg:px-14 py-10">
@@ -115,13 +168,50 @@ export default function Dashboard() {
       </div>
 
       {/* Content */}
+      <div className="flex gap-3 overflow-x-auto pb-3 mb-8">
+  {FILTERS.map((filter) => (
+    <button
+      key={filter.value}
+      onClick={() =>
+        setActiveFilter(filter.value)
+      }
+      className={`
+        whitespace-nowrap
+        px-5 py-3
+        rounded-full
+        border
+        transition-all
+        ${
+          activeFilter === filter.value
+            ? "bg-orange-500 border-orange-500 text-white"
+            : "border-zinc-700 text-zinc-300"
+        }
+      `}
+    >
+      {filter.label}
+
+      <span className="ml-2 bg-black/20 px-2 py-1 rounded-full text-xs">
+        {getCount(filter.value)}
+      </span>
+    </button>
+  ))}
+</div>
       {loading ? (
         <p className="text-zinc-400">Loading gallery...</p>
       ) : galleryItems.length === 0 ? (
         <p className="text-zinc-400">No gallery items found.</p>
       ) : (
-        <div className="grid gap-4">
-          {galleryItems.map((item) => (
+        <div
+  className="
+  grid
+  grid-cols-1
+  md:grid-cols-2
+  xl:grid-cols-3
+  gap-6
+"
+>
+          {filteredItems.map((item) => (
+            
             <GalleryCard
               key={item._id}
               item={item}
