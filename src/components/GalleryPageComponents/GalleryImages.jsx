@@ -8,9 +8,6 @@ import axios from "axios";
 
 
 
-
-
-
 const E = [0.25, 0.46, 0.45, 0.94];
 
 // ─── Lightweight grid item variant ───────────────────────────────────────────
@@ -116,13 +113,65 @@ const items =
         (i) => i.cat === activeTab
       );
 
-const navigateLightbox = useCallback((dir) => {
-  const idx = items.findIndex(i => i.id === lightbox.id);
-  const next = (idx + dir + items.length) % items.length;
+const navigateLightbox = (dir) => {
 
-  setLightbox(items[next]);
-  setSelectedVariant(0);
-}, [items, lightbox]);
+  const currentGalleryIndex =
+    items.findIndex(
+      (i) => i.id === lightbox.id
+    );
+
+  const totalVariants =
+    lightbox.variants?.length || 0;
+
+  if (dir === 1) {
+
+    if (
+      selectedVariant <
+      totalVariants
+    ) {
+      setSelectedVariant(
+        prev => prev + 1
+      );
+      return;
+    }
+
+    const nextGalleryIndex =
+      (currentGalleryIndex + 1) %
+      items.length;
+
+    setLightbox(
+      items[nextGalleryIndex]
+    );
+
+    setSelectedVariant(0);
+
+    return;
+  }
+
+  if (dir === -1) {
+
+    if (selectedVariant > 0) {
+      setSelectedVariant(
+        prev => prev - 1
+      );
+      return;
+    }
+
+    const prevGalleryIndex =
+      (currentGalleryIndex - 1 +
+        items.length) %
+      items.length;
+
+    const previousItem =
+      items[prevGalleryIndex];
+
+    setLightbox(previousItem);
+
+    setSelectedVariant(
+      previousItem.variants.length
+    );
+  }
+};
 
   return (
     <section
@@ -194,7 +243,17 @@ const navigateLightbox = useCallback((dir) => {
         - willChange omitted intentionally — browser handles GPU layer per item automatically
         - CSS hover effects (group-hover) for image zoom — cheaper than whileHover on 20 nodes
       */}
-      <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <motion.div
+  layout
+  className="
+  grid
+  grid-cols-1
+  sm:grid-cols-2
+  lg:grid-cols-3
+  xl:grid-cols-4
+  gap-5
+"
+>
         <AnimatePresence mode="popLayout">
           {items.map((item) => (
             <motion.div
@@ -208,14 +267,31 @@ const navigateLightbox = useCallback((dir) => {
               setLightbox(item);
               setSelectedVariant(0);
              }}
-              className="relative group cursor-pointer overflow-hidden rounded-xl aspect-square bg-[#1a1a1a]"
+              className="
+relative
+group
+cursor-pointer
+overflow-hidden
+rounded-xl
+bg-[#1a1a1a]
+border
+border-white/5
+"
             >
               <img
                 src={item.img}
                 alt={item.title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="
+w-full
+h-auto
+max-h-[450px]
+object-contain
+transition-transform
+duration-500
+group-hover:scale-[1.02]
+"
                 onError={(e) => { e.target.style.opacity = "0.3"; }}
               />
 
@@ -223,12 +299,17 @@ const navigateLightbox = useCallback((dir) => {
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="text-[9px] font-bold tracking-[0.18em] text-orange-400 uppercase mb-0.5">
-                  {item.label}
-                </p>
-                <p className="text-xs font-bold text-white truncate">{item.title}</p>
-              </div>
+        <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/90 via-black/60 to-transparent">
+
+  <p className="text-orange-500 text-xs font-bold uppercase tracking-[0.2em]">
+    {item.label}
+  </p>
+
+  <h3 className="text-white text-lg sm:text-xl font-bold mt-1">
+    {item.title}
+  </h3>
+
+</div>
 
               {/* Arrow icon */}
               <div className="absolute top-2 right-2 w-7 h-7 rounded-md bg-orange-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -259,59 +340,80 @@ const navigateLightbox = useCallback((dir) => {
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-4xl w-full max-h-[90vh] flex flex-col"
             >
-             <img
+
+              <img
   src={
-    lightbox.variants
-      ? lightbox.variants[selectedVariant]
-      : lightbox.img
+    selectedVariant === 0
+      ? lightbox.img
+      : lightbox.variants[
+          selectedVariant - 1
+        ]
   }
   alt={lightbox.title}
-  className="w-full max-h-[80vh] object-contain rounded-xl"
+  className="
+    w-full
+    max-h-[75vh]
+    object-contain
+    rounded-2xl
+  "
 />
-{lightbox.variants && (
-  <div className="flex flex-wrap justify-center gap-3 mt-4">
-    {lightbox.variants.map((variant, index) => (
-      <button
-        key={index}
-        onClick={() => setSelectedVariant(index)}
-        className={`overflow-hidden rounded-lg border-2 transition-all ${
-          selectedVariant === index
-            ? "border-orange-500 scale-105"
-            : "border-white/20"
-        }`}
-      >
-        <img
-          src={variant}
-          alt={`Variant ${index + 1}`}
-          className="w-20 h-20 object-cover"
-        />
-      </button>
-    ))}
-  </div>
-)}
+
+   
+
 
               <div className="flex items-center justify-between mt-3 px-1">
                 <div>
                   <p className="text-[10px] font-bold tracking-[0.18em] text-orange-500 uppercase">
                     {lightbox.label}
                   </p>
-                  <p className="text-sm font-bold text-white">{lightbox.title}</p>
+              <h2 className="text-2xl sm:text-4xl font-bold text-white">{lightbox.title}</h2>
                 </div>
 
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => navigateLightbox(-1)}
-                    className="w-8 h-8 rounded-lg border border-white/20 hover:border-orange-500 text-white hover:text-orange-500 transition-colors duration-200 flex items-center justify-center font-bold"
-                  >
-                    ‹
-                  </button>
-                  <button
-                    onClick={() => navigateLightbox(1)}
-                    className="w-8 h-8 rounded-lg border border-white/20 hover:border-orange-500 text-white hover:text-orange-500 transition-colors duration-200 flex items-center justify-center font-bold"
-                  >
-                    ›
-                  </button>
-                </div>
+            <button
+  onClick={() =>
+    navigateLightbox(-1)
+  }
+  className="
+  absolute
+  left-4
+  top-1/2
+  -translate-y-1/2
+  w-12
+  h-12
+  rounded-full
+  bg-black/60
+  backdrop-blur-md
+  border
+  border-white/10
+  text-white
+  text-3xl
+"
+>
+  ‹
+</button>
+
+<button
+  onClick={() =>
+    navigateLightbox(1)
+  }
+  className="
+  absolute
+  right-4
+  top-1/2
+  -translate-y-1/2
+  w-12
+  h-12
+  rounded-full
+  bg-black/60
+  backdrop-blur-md
+  border
+  border-white/10
+  text-white
+  text-3xl
+"
+>
+  ›
+</button>
               </div>
 
               <button
