@@ -78,7 +78,7 @@ useEffect(() => {
   const fetchGallery = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/gallery`
+        "https://madhavartbackend.onrender.com/api/gallery",
       );
 
       const formattedData =
