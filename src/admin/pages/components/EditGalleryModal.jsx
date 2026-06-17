@@ -20,10 +20,10 @@ const INPUT_CLS =
 
 function LoadingOverlay() {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center">
-      <div className="relative w-[280px] h-[120px] overflow-hidden">
+    <div className="fixed inset-0 z-100 bg-black/95 flex flex-col items-center justify-center">
+      <div className="relative w-70 h-30 overflow-hidden">
         {/* Road */}
-        <div className="absolute bottom-6 left-0 right-0 h-[2px] bg-zinc-700" />
+        <div className="absolute bottom-6 left-0 right-0 h-0.5 bg-zinc-700" />
         {/* Bike */}
         <motion.div
           animate={{ x: ["-30%", "110%"] }}
@@ -49,7 +49,7 @@ function LoadingOverlay() {
 
 function SuccessScreen() {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center">
+    <div className="fixed inset-0 z-100 bg-black/95 flex items-center justify-center">
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

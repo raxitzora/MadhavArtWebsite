@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { HiX, HiOutlineArrowRight } from "react-icons/hi";
 import { MdFilterList } from "react-icons/md";
@@ -312,7 +312,26 @@ group-hover:scale-[1.02]
 </div>
 
               {/* Arrow icon */}
-              <div className="absolute top-2 right-2 w-7 h-7 rounded-md bg-orange-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="
+absolute
+left-4
+top-1/2
+-translate-y-1/2
+w-12
+h-12
+rounded-full
+bg-black/60
+backdrop-blur-md
+border
+border-white/10
+text-white
+text-3xl
+transition-all
+duration-200
+hover:scale-110
+hover:border-orange-500/50
+active:scale-95
+">
                 <HiOutlineArrowRight size={14} className="text-white -rotate-45" />
               </div>
             </motion.div>
@@ -341,22 +360,41 @@ group-hover:scale-[1.02]
               className="relative max-w-4xl w-full max-h-[90vh] flex flex-col"
             >
 
-              <img
-  src={
-    selectedVariant === 0
-      ? lightbox.img
-      : lightbox.variants[
-          selectedVariant - 1
-        ]
-  }
-  alt={lightbox.title}
-  className="
-    w-full
-    max-h-[75vh]
-    object-contain
-    rounded-2xl
-  "
-/>
+     <AnimatePresence mode="wait">
+  <motion.img
+    key={`${lightbox.id}-${selectedVariant}`}
+    src={
+      selectedVariant === 0
+        ? lightbox.img
+        : lightbox.variants[
+            selectedVariant - 1
+          ]
+    }
+    alt={lightbox.title}
+    initial={{
+      opacity: 0,
+      x: 20,
+    }}
+    animate={{
+      opacity: 1,
+      x: 0,
+    }}
+    exit={{
+      opacity: 0,
+      x: -20,
+    }}
+    transition={{
+      duration: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+    className="
+      w-full
+      max-h-[75vh]
+      object-contain
+      rounded-2xl
+    "
+  />
+</AnimatePresence>
 
    
 
@@ -369,7 +407,17 @@ group-hover:scale-[1.02]
               <h2 className="text-2xl sm:text-4xl font-bold text-white">{lightbox.title}</h2>
                 </div>
 
-            <button
+  <motion.button
+  whileHover={{
+    scale: 1.12,
+    x: -4,
+  }}
+  whileTap={{
+    scale: 0.92,
+  }}
+  transition={{
+    duration: 0.2,
+  }}
   onClick={() =>
     navigateLightbox(-1)
   }
@@ -387,12 +435,23 @@ group-hover:scale-[1.02]
   border-white/10
   text-white
   text-3xl
+  hover:border-orange-500/50
 "
 >
   ‹
-</button>
+</motion.button>
 
-<button
+<motion.button
+  whileHover={{
+    scale: 1.12,
+    x: 4,
+  }}
+  whileTap={{
+    scale: 0.92,
+  }}
+  transition={{
+    duration: 0.2,
+  }}
   onClick={() =>
     navigateLightbox(1)
   }
@@ -405,15 +464,17 @@ group-hover:scale-[1.02]
   h-12
   rounded-full
   bg-black/60
+shadow-[0_0_25px_rgba(249,115,22,0.15)]
   backdrop-blur-md
   border
   border-white/10
   text-white
   text-3xl
+  hover:border-orange-500/50
 "
 >
   ›
-</button>
+</motion.button>
               </div>
 
               <button

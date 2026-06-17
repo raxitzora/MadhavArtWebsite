@@ -93,10 +93,10 @@ function FileField({ label, multiple = false, onChange, hasError }) {
 
 function LoadingOverlay() {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center">
-      <div className="relative w-[280px] h-[120px] overflow-hidden">
+    <div className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center">
+      <div className="relative w-70 h-30 overflow-hidden">
         {/* Road */}
-        <div className="absolute bottom-6 left-0 right-0 h-[2px] bg-zinc-700" />
+        <div className="absolute bottom-6 left-0 right-0 h-0.5 bg-zinc-700" />
         {/* Bike */}
         <motion.div
           animate={{ x: ["-30%", "110%"] }}
@@ -122,7 +122,7 @@ function LoadingOverlay() {
 
 function SuccessScreen() {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+    <div className="fixed inset-0 z- bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -161,17 +161,15 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
   }, [isOpen]);
 
   // Reset state when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setForm(INITIAL_FORM);
-      setThumbnail(null);
-      setVariants([]);
-      setToast({ type: "", message: "" });
-      setErrors({});
-      setUploaded(false);
-      setLoading(false);
-    }
-  }, [isOpen]);
+  const resetModal = () => {
+  setForm(INITIAL_FORM);
+  setThumbnail(null);
+  setVariants([]);
+  setToast({ type: "", message: "" });
+  setErrors({});
+  setUploaded(false);
+  setLoading(false);
+};
 
   const handleChange = useCallback(
     (key) => (e) => setForm((prev) => ({ ...prev, [key]: e.target.value })),
@@ -216,9 +214,12 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
     }
   };
 
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) onClose();
-  };
+const handleBackdropClick = (e) => {
+  if (e.target === e.currentTarget) {
+    resetModal();
+    onClose();
+  }
+};
 
   if (!isOpen) return null;
 
@@ -296,7 +297,11 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
               label={thumbnail ? thumbnail.name : "Thumbnail Image *"}
               onChange={(e) => {
                 setThumbnail(e.target.files[0] ?? null);
-                setErrors((prev) => { const { thumbnail: _, ...rest } = prev; return rest; });
+                setErrors((prev) => {
+  const rest = { ...prev };
+  delete rest.thumbnail;
+  return rest;
+});
               }}
               hasError={!!errors.thumbnail}
             />
@@ -310,7 +315,11 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
               multiple
               onChange={(e) => {
                 setVariants(Array.from(e.target.files));
-                setErrors((prev) => { const { variants: _, ...rest } = prev; return rest; });
+                setErrors((prev) => {
+  const rest = { ...prev };
+  delete rest.variants;
+  return rest;
+});
               }}
               hasError={!!errors.variants}
             />
@@ -324,13 +333,15 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
               >
                 Upload Project
               </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="flex-1 rounded-xl border border-orange-500/20 bg-[#111111] py-3 font-semibold text-white hover:border-orange-500/40 transition-colors text-sm sm:text-base"
-              >
-                Cancel
-              </button>
+             <button
+  type="button"
+  onClick={() => {
+    resetModal();
+    onClose();
+  }}
+>
+  Cancel
+</button>
             </div>
           </form>
         </div>

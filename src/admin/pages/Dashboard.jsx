@@ -156,7 +156,7 @@ const FILTERS = [
             onClick={() => openModal("add")}
             className="bg-orange-500 hover:bg-orange-500/90 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
-            + Add Project
+            + Add Image
           </button>
           <button
             onClick={handleLogout}

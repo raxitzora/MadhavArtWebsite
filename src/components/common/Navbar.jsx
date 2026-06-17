@@ -189,7 +189,7 @@ export default function Navbar() {
               {/* Phone + CTA row */}
               <div className="flex flex-col sm:flex-row gap-3 px-5 py-4">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+91 9624196196"
                   className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 hover:text-white border border-white/10 hover:border-orange-500/40 rounded-full px-5 py-2.5 transition-all duration-200"
                 >
                   <BiPhone size={17} className="text-orange-500" />
