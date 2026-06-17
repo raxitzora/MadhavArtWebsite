@@ -122,8 +122,7 @@ function LoadingOverlay() {
 
 function SuccessScreen() {
   return (
-    <div className="fixed inset-0 z- bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
-      <motion.div
+<div className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center gap-4">      <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
@@ -153,12 +152,25 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
   const [toast, setToast]         = useState({ type: "", message: "" });
   const [errors, setErrors]       = useState({});
 
+  
+
   // Lock body scroll when modal is open
   useEffect(() => {
     if (!isOpen) return;
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
+
+  useEffect(() => {
+  if (!uploaded) return;
+
+  const timer = setTimeout(() => {
+    resetModal();
+    onClose();
+  }, 1400);
+
+  return () => clearTimeout(timer);
+}, [uploaded]);
 
   // Reset state when modal opens
   const resetModal = () => {
@@ -206,7 +218,6 @@ export default function AddGalleryModal({ isOpen, onClose, onSuccess }) {
       onSuccess?.();
       setLoading(false);
       setUploaded(true);
-      setTimeout(onClose, 1400);
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -243,7 +254,10 @@ const handleBackdropClick = (e) => {
         {/* Close button */}
         <button
           type="button"
-          onClick={onClose}
+          onClick={() => {
+  resetModal();
+  onClose();
+}}
           className="absolute top-4 right-4 z-10 p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
           aria-label="Close modal"
         >
