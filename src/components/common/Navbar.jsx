@@ -110,45 +110,30 @@ export default function Navbar() {
     </span>
   </a>
 
-  <NavLink
-    to="/admin/login"
-    className="
-    border
-    border-orange-500/40
-    text-orange-500
-    hover:bg-orange-500
-    hover:text-black
-    font-bold
-    text-sm
-    px-5
-    py-2.5
-    rounded-full
-    transition-all
-    duration-200
-    "
-  >
-    Admin Panel
-  </NavLink>
+
 
   <NavLink
-    to="/contact"
-    className="
-    bg-orange-500
-    hover:bg-orange-400
-    text-black
-    font-bold
-    text-sm
-    px-6
-    py-2.5
-    rounded-full
-    shadow-[0_0_20px_rgba(249,115,22,0.4)]
-    hover:shadow-[0_0_30px_rgba(249,115,22,0.6)]
-    transition-all
-    duration-200
-    "
-  >
-    Get a Quote
-  </NavLink>
+  to="/admin/login"
+  onClick={closeMenu}
+  className="
+  flex items-center
+  justify-center
+  w-11
+  h-11
+  rounded-full
+  bg-orange-500/10
+  border
+  border-orange-500/30
+  text-orange-500
+  hover:bg-orange-500
+  hover:text-black
+  hover:scale-105
+  transition-all
+  duration-300
+  "
+>
+  <MdAdminPanelSettings size={22} />
+</NavLink>
 </div>
 
           {/* Mobile hamburger */}
@@ -239,13 +224,7 @@ export default function Navbar() {
                   +91 9624196196
                 </a>
   
-                <NavLink
-                  to="/contact"
-                  onClick={closeMenu}
-                  className="flex items-center justify-center bg-orange-500 hover:bg-orange-400 text-black font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-200 sm:ml-auto"
-                >
-                  Get a Quote
-                </NavLink>
+              
                              <NavLink
   to="/admin/login"
   onClick={closeMenu}
