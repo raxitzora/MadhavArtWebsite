@@ -240,7 +240,7 @@ const navigateLightbox = (dir) => {
         - willChange omitted intentionally — browser handles GPU layer per item automatically
         - CSS hover effects (group-hover) for image zoom — cheaper than whileHover on 20 nodes
       */}
-      <motion.div
+  <motion.div
   layout
   className="
   grid
@@ -275,22 +275,23 @@ border
 border-white/5
 "
             >
-              <img
-                src={item.img}
-                alt={item.title}
-                loading="lazy"
-                decoding="async"
-                className="
+           <img
+  src={item.img}
+  alt={item.title}
+  loading="lazy"
+  decoding="async"
+  className="
 w-full
-h-auto
-max-h-112.5
-object-contain
+aspect-4/3
+object-cover
 transition-transform
 duration-500
 group-hover:scale-[1.02]
 "
-                onError={(e) => { e.target.style.opacity = "0.3"; }}
-              />
+  onError={(e) => {
+    e.target.style.opacity = "0.3";
+  }}
+/>
 
               {/* Hover overlay — pure CSS, zero JS cost */}
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -309,28 +310,39 @@ group-hover:scale-[1.02]
 </div>
 
               {/* Arrow icon */}
-              <div className="
-absolute
-left-4
-top-1/2
--translate-y-1/2
-w-12
-h-12
-rounded-full
-bg-black/60
-backdrop-blur-md
-border
-border-white/10
-text-white
-text-3xl
-transition-all
-duration-200
-hover:scale-110
-hover:border-orange-500/50
-active:scale-95
-">
-                <HiOutlineArrowRight size={14} className="text-white -rotate-45" />
-              </div>
+  <div
+  className="
+  absolute
+  left-4
+  bottom-4
+  w-12
+  h-12
+  rounded-full
+  bg-black/60
+  backdrop-blur-md
+  border
+  border-white/10
+  flex
+  items-center
+  justify-center
+  transition-all
+  duration-300
+  group-hover:border-orange-500/50
+  group-hover:scale-105
+"
+>
+  <HiOutlineArrowRight
+    size={20}
+    className="
+    text-white
+    -rotate-45
+    transition-transform
+    duration-300
+    group-hover:translate-x-0.5
+    group-hover:-translate-y-0.5
+    "
+  />
+</div>
             </motion.div>
           ))}
         </AnimatePresence>

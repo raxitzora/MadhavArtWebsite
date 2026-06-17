@@ -60,14 +60,7 @@ export default function Introduction() {
     className="font-bebas text-6xl sm:text-7xl xl:text-8xl leading-[0.95] tracking-wide uppercase text-center max-w-5xl font-bold"
   >
     Transforming Vehicles Into{" "}
-    <span
-      style={{
-        background:
-          "linear-gradient(135deg,#ff8c42 0%,#ffb347 60%,#ff8c42 100%)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-      }}
-    >
+    <span className="text-orange-500">
       Rolling Masterpieces
     </span>
   </motion.h1>

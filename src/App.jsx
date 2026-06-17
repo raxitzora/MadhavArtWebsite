@@ -27,13 +27,13 @@ function App() {
 
   return (
     <>
-      {!loaded && (
-        <Loader
-          onComplete={() => setLoaded(true)}
-        />
-      )}
+      {!loaded && !isAdminRoute && (
+  <Loader
+    onComplete={() => setLoaded(true)}
+  />
+)}
 
-      {loaded && (
+      {(loaded || isAdminRoute) && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

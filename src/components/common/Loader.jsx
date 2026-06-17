@@ -266,15 +266,15 @@ export default function Loader({ onComplete }) {
   const startRef = useRef(null);
 
   useEffect(() => {
-    const TOTAL = 11000;
+    const TOTAL = 5000;
 const sceneBreaks = [
+  0,     // Intro
   0,
-  0, // Welcome
-  3000, // Cleaning
-  5000, // Painting
-  7500, // Graphics
-  9000, // Ready
-  10500 // Exit
+  1000,  // Cleaning
+  2200,  // Painting
+  3400,  // Graphics
+  4300,  // Ready
+  4800   // Exit
 ];
     const tick = (now) => {
       if (!startRef.current) startRef.current = now;
@@ -287,34 +287,37 @@ const sceneBreaks = [
       setScene(s);
 
       // Paint (scene 3: 2000–3000ms)
-   if (elapsed >= 1500 && elapsed < 4500)
-  setPrepProgress((elapsed - 1500) / 2000);
-else if (elapsed >= 4500)
+if (elapsed >= 1000 && elapsed < 2200)
+  setPrepProgress((elapsed - 1000) / 1200);
+else if (elapsed >= 2200)
   setPrepProgress(1);
 
       // Decal (scene 4: 3200–4000ms, delayed start for drama)
-if (elapsed >= 5000 && elapsed < 7500)
-  setPaintProgress((elapsed - 5000) / 2500);
-else if (elapsed >= 7500)
+if (elapsed >= 2200 && elapsed < 3400)
+  setPaintProgress((elapsed - 2200) / 1200);
+else if (elapsed >= 3400)
   setPaintProgress(1);
 
-if (elapsed >= 7500 && elapsed < 9000)
-  setDecalProgress((elapsed - 7500) / 1500);
-else if (elapsed >= 9000)
+if (elapsed >= 3400 && elapsed < 4300)
+  setDecalProgress((elapsed - 3400) / 900);
+else if (elapsed >= 4300)
   setDecalProgress(1);
 
       // Shine sweep (scene 5: 4000–5000ms)
-      if (elapsed >= 4000 && elapsed < 5000) setShineProgress((elapsed - 4000) / 1000);
-      else if (elapsed >= 5000) setShineProgress(1.2); // past edge = done
+  if (elapsed >= 3800 && elapsed < 4600)
+  setShineProgress((elapsed - 3800) / 800);
+else if (elapsed >= 4600)
+  setShineProgress(1.2);// past edge = done
 
       // Bike exit (5000ms+)
-      if (elapsed >= 5000 && !bikeExiting) setBikeExiting(true);
+      if (elapsed >= 4700 && !bikeExiting)
+  setBikeExiting(true);
 
       if (elapsed < TOTAL) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
         setVisible(false);
-        setTimeout(() => onComplete?.(), 450);
+        setTimeout(() => onComplete?.(), 250);
       }
     };
 
