@@ -7,7 +7,6 @@ import axios from "axios";
 
 
 
-
 const E = [0.25, 0.46, 0.45, 0.94];
 
 // ─── Lightweight grid item variant ───────────────────────────────────────────
@@ -71,40 +70,38 @@ const [allItems, setAllItems] = useState([]);
   },
 ];
 
+
+
+
+
 useEffect(() => {
+  const fetchGallery = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/gallery"
+      );
+
+      const formattedData =
+        res.data.data.map((item) => ({
+          id: item._id,
+          cat: item.category,
+          img: item.thumbnail.url,
+          title: item.title,
+          label: item.label,
+          variants:
+            item.variants?.map(
+              (v) => v.url
+            ) || [],
+        }));
+
+      setAllItems(formattedData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   fetchGallery();
 }, []);
-
-const fetchGallery = async () => {
-  try {
-    const res = await axios.get(
-      "http://localhost:5000/api/gallery"
-    );
-
-    const formattedData =
-      res.data.data.map((item) => ({
-        id: item._id,
-
-        cat: item.category,
-
-        img: item.thumbnail.url,
-
-        title: item.title,
-
-        label: item.label,
-
-        variants:
-          item.variants?.map(
-            (v) => v.url
-          ) || [],
-      }));
-
-    setAllItems(formattedData);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 
 const items =
   activeTab === "all"
@@ -286,7 +283,7 @@ border-white/5
                 className="
 w-full
 h-auto
-max-h-[450px]
+max-h-112.5
 object-contain
 transition-transform
 duration-500
@@ -299,7 +296,7 @@ group-hover:scale-[1.02]
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {/* Caption */}
-        <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/90 via-black/60 to-transparent">
+        <div className="absolute top-0 left-0 right-0 p-4 bg-linear-to-b from-black/90 via-black/60 to-transparent">
 
   <p className="text-orange-500 text-xs font-bold uppercase tracking-[0.2em]">
     {item.label}

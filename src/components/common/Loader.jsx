@@ -320,7 +320,7 @@ else if (elapsed >= 9000)
 
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, []);
+  }, [bikeExiting, onComplete]);
 
   const sceneLabels = {
     1: { line1: "Step 01", line2: "Welcome to Madhavart" },

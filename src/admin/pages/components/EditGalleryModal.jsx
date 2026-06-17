@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import api from "../services/api";
 import { motion } from "motion/react";
 import { Bike, CheckCircle2, X } from "lucide-react";
@@ -66,24 +66,19 @@ function SuccessScreen() {
 // ─── Main Modal ───────────────────────────────────────────────────────────────
 
 export default function EditGalleryModal({ isOpen, onClose, item, onSuccess }) {
-  const [form, setForm]       = useState({ title: "", category: "", label: "" });
+  const [form, setForm] = useState(() => ({
+  title: item?.title || "",
+  category: item?.category || "",
+  label: item?.label || "",
+}));
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
 
   // Sync form when item changes
-  useEffect(() => {
-    if (item) {
-      setForm({ title: item.title, category: item.category, label: item.label });
-    }
-  }, [item]);
+ 
 
   // Reset overlay states when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setLoading(false);
-      setUpdated(false);
-    }
-  }, [isOpen]);
+
 
   const handleChange = useCallback(
     (key) => (e) => setForm((prev) => ({ ...prev, [key]: e.target.value })),
@@ -98,10 +93,11 @@ export default function EditGalleryModal({ isOpen, onClose, item, onSuccess }) {
       onSuccess?.();
       setLoading(false);
       setUpdated(true);
-      setTimeout(() => {
-        setUpdated(false);
-        onClose();
-      }, 1200);
+     setTimeout(() => {
+  setUpdated(false);
+  setLoading(false);
+  onClose();
+}, 1200);
     } catch (error) {
       console.error(error);
       setLoading(false);

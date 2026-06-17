@@ -11,9 +11,9 @@ import api from "./services/api";
 
 function LoadingOverlay({ message = "Loading..." }) {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center">
-      <div className="relative w-[280px] h-[120px] overflow-hidden">
-        <div className="absolute bottom-6 left-0 right-0 h-[2px] bg-zinc-700" />
+    <div className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center">
+      <div className="relative w-70 h-30 overflow-hidden">
+        <div className="absolute bottom-6 left-0 right-0 h-0.5 bg-zinc-700" />
         <motion.div
           animate={{ x: ["-30%", "110%"] }}
           transition={{ repeat: Infinity, duration: 1.6, ease: "linear" }}
@@ -104,7 +104,32 @@ const filteredItems =
     navigate("/admin/login");
   };
 
-  useEffect(() => { fetchGallery(); }, []);
+  useEffect(() => {
+  let mounted = true;
+
+  const loadGallery = async () => {
+    try {
+      const res = await api.get("/gallery");
+
+      if (mounted) {
+        setGalleryItems(res.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch gallery");
+    } finally {
+      if (mounted) {
+        setLoading(false);
+      }
+    }
+  };
+
+  loadGallery();
+
+  return () => {
+    mounted = false;
+  };
+}, []);
 const FILTERS = [
   {
     label: "All Work",
