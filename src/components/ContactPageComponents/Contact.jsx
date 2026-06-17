@@ -38,7 +38,7 @@ const [loading, setLoading] =
     setLoading(true);
 
     await axios.post(
-      "http://localhost:5000/api/contact",
+      "https://madhavartbackend.onrender.com/api/contact",
       form
     );
 
