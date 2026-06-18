@@ -20,7 +20,7 @@ const gridItem = {
 export default function GalleryImages() {
 
 
-  
+  const [imageLoading, setImageLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
   const [lightbox,  setLightbox]  = useState(null);
 const [selectedVariant, setSelectedVariant] = useState(0);
@@ -72,7 +72,11 @@ const [allItems, setAllItems] = useState([]);
 
 
 
-
+useEffect(() => {
+  if (lightbox) {
+    setImageLoading(true);
+  }
+}, [lightbox, selectedVariant]);
 
 useEffect(() => {
   const fetchGallery = async () => {
@@ -116,19 +120,36 @@ fullImg: item.thumbnail.url.replace(
   
 }, []);
 
-  useEffect(() => {
-  if (!allItems.length) return;
+ useEffect(() => {
+  if (!lightbox) return;
 
-  allItems.forEach((item) => {
-    const thumb = new Image();
-    thumb.src = item.img;
+  const currentIndex = items.findIndex(
+    (i) => i.id === lightbox.id
+  );
+  
+  
+
+  const nextItem =
+    items[(currentIndex + 1) % items.length];
+
+  const prevItem =
+    items[
+      (currentIndex - 1 + items.length) %
+      items.length
+    ];
+
+  [nextItem, prevItem].forEach((item) => {
+    if (!item) return;
+
+    const img = new Image();
+    img.src = item.fullImg;
 
     item.variants?.forEach((url) => {
-      const img = new Image();
-      img.src = url;
+      const v = new Image();
+      v.src = url;
     });
   });
-}, [allItems]);
+}, [lightbox]);
 const items =
   activeTab === "all"
     ? allItems
@@ -137,6 +158,7 @@ const items =
       );
 
 const navigateLightbox = (dir) => {
+  setImageLoading(true);
 
   const currentGalleryIndex =
     items.findIndex(
@@ -277,7 +299,6 @@ const navigateLightbox = (dir) => {
   gap-5
 "
 >
-        <AnimatePresence mode="popLayout">
           {items.map((item) => (
             <motion.div
               key={item.id}
@@ -286,10 +307,11 @@ const navigateLightbox = (dir) => {
               initial="hidden"
               animate="show"
               exit="exit"
-             onClick={()=>{
-              setLightbox(item);
-              setSelectedVariant(0);
-             }}
+             onClick={() => {
+  setImageLoading(true);
+  setLightbox(item);
+  setSelectedVariant(0);
+}}
               className="
 relative
 group
@@ -370,7 +392,6 @@ group-hover:scale-[1.02]
 </div>
             </motion.div>
           ))}
-        </AnimatePresence>
       </motion.div>
 
       {/* ── Lightbox ── */}
@@ -394,41 +415,66 @@ group-hover:scale-[1.02]
               className="relative max-w-4xl w-full max-h-[90vh] flex flex-col"
             >
 
-<AnimatePresence mode="sync">
-  <motion.img
-    key={`${lightbox.id}-${selectedVariant}`}
+<>
+ <div
+  className="
+  relative
+  w-full
+min-h-62.5 sm:min-h-87.5 lg:min-h-112.5  flex
+  items-center
+  justify-center
+  "
+>
+ {imageLoading && (
+  <div
+    className="
+    absolute
+    inset-0
+    rounded-2xl
+    overflow-hidden
+    bg-zinc-800
+    animate-pulse
+    "
+  >
+    <div
+      className="
+      absolute
+      inset-0
+      bg-linear-to-r
+      from-transparent
+      via-white/5
+      to-transparent
+      animate-[shimmer_1.5s_infinite]
+      "
+    />
+  </div>
+)}
+
+  <img
     src={
       selectedVariant === 0
-  ? lightbox.fullImg
-        : lightbox.variants[
-            selectedVariant - 1
-          ]
+        ? lightbox.fullImg
+        : lightbox.variants[selectedVariant - 1]
     }
     alt={lightbox.title}
-    initial={{
-      opacity: 0,
-      x: 20,
-    }}
-    animate={{
-      opacity: 1,
-      x: 0,
-    }}
-    exit={{
-      opacity: 0,
-      x: -20,
-    }}
-    transition={{
-      duration: 0.25,
-      ease: [0.22, 1, 0.36, 1],
-    }}
-    className="
+    onLoad={() => setImageLoading(false)}
+    onError={() => setImageLoading(false)}
+    className={`
       w-full
       max-h-[75vh]
       object-contain
       rounded-2xl
-    "
+      transition-opacity
+      duration-300
+      ${
+        imageLoading
+          ? "opacity-0"
+          : "opacity-100"
+      }
+    `}
   />
-</AnimatePresence>
+</div>
+</>
 
    
 
