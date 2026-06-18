@@ -80,17 +80,29 @@ useEffect(() => {
       const res = await axios.get(
         "https://madhavartbackend.onrender.com/api/gallery",
       );
+    
 
       const formattedData =
         res.data.data.map((item) => ({
           id: item._id,
           cat: item.category,
-          img: item.thumbnail.url,
+        img: item.thumbnail.url.replace(
+  "/upload/",
+  "/upload/f_auto,q_auto,w_600,c_fill/"
+),
+
+fullImg: item.thumbnail.url.replace(
+  "/upload/",
+  "/upload/f_auto,q_auto,w_1400/"
+),
           title: item.title,
           label: item.label,
           variants:
             item.variants?.map(
-              (v) => v.url
+              (v) => v.url.replace(
+  "/upload/",
+  "/upload/f_auto,q_auto,w_900/"
+)
             ) || [],
         }));
 
@@ -101,8 +113,22 @@ useEffect(() => {
   };
 
   fetchGallery();
+  
 }, []);
 
+  useEffect(() => {
+  if (!allItems.length) return;
+
+  allItems.forEach((item) => {
+    const thumb = new Image();
+    thumb.src = item.img;
+
+    item.variants?.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  });
+}, [allItems]);
 const items =
   activeTab === "all"
     ? allItems
@@ -278,7 +304,11 @@ border-white/5
            <img
   src={item.img}
   alt={item.title}
-  loading="lazy"
+  loading={
+  items.indexOf(item) < 4
+    ? "eager"
+    : "lazy"
+}
   decoding="async"
   className="
 w-full
@@ -364,12 +394,12 @@ group-hover:scale-[1.02]
               className="relative max-w-4xl w-full max-h-[90vh] flex flex-col"
             >
 
-     <AnimatePresence mode="wait">
+<AnimatePresence mode="sync">
   <motion.img
     key={`${lightbox.id}-${selectedVariant}`}
     src={
       selectedVariant === 0
-        ? lightbox.img
+  ? lightbox.fullImg
         : lightbox.variants[
             selectedVariant - 1
           ]

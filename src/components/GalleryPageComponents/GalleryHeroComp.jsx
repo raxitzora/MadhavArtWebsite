@@ -40,7 +40,7 @@ export default function GalleryHeroComp() {
       {/* Full-bleed background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/assets/gallery-hero-bike.jpg')" }}
+        
       />
 
       {/* Overlay — centre-focused so text on all sides stays readable */}
