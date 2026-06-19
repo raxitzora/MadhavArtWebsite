@@ -1,9 +1,6 @@
-import {
-  initGA,
-  trackPageView,
-} from "./utils/analytics";
+
 import { Routes, Route,useLocation } from "react-router-dom";
-import { useState,useEffect  } from "react";
+import { useState  } from "react";
 import { motion } from "motion/react";
 import ScrollToTopButton from "./components/common/ScrollToTopButton.jsx";
 
@@ -27,13 +24,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   const location = useLocation();
-  useEffect(() => {
-  initGA();
-}, []);
 
-useEffect(() => {
-  trackPageView(location.pathname);
-}, [location.pathname]);
 
   const isAdminRoute =
     location.pathname.startsWith("/admin");
