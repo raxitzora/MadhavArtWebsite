@@ -89,22 +89,22 @@ const [loading, setLoading] =
             Contact MadhavArt
           </p>
 
-          <h2 className="text-4xl sm:text-5xl font-bold font-bebas tracking-wide">
-            Let's Build Your
-            <span className="text-orange-500">
-              {" "}
-              Dream Ride
-            </span>
-          </h2>
+        <h1 className="text-4xl sm:text-5xl font-bold font-bebas tracking-wide">
+  Contact MadhavArt For Bike Customization
+  <span className="text-orange-500">
+    {" "}
+    & Radium Art
+  </span>
+</h1>
 
-          <p className="max-w-2xl mx-auto mt-4 text-gray-400">
-            Looking for custom graphics,
-            bike restoration, radium art,
-            premium paint work or complete
-            vehicle transformation? Send
-            us your details and we'll get
-            back to you.
-          </p>
+       <p className="max-w-2xl mx-auto mt-4 text-gray-400">
+  Contact MadhavArt in Madhavpur,
+  Gujarat for bike customization,
+  custom stickers, radium art,
+  bike graphics, restoration,
+  paint work and complete vehicle
+  transformation services.
+</p>
         </motion.div>
 
         {/* Form */}
@@ -146,6 +146,7 @@ const [loading, setLoading] =
               name="fullName"
               value={form.fullName}
               onChange={handleChange}
+              required
             />
 
             <InputField
@@ -156,6 +157,7 @@ const [loading, setLoading] =
               name="phone"
               value={form.phone}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -168,12 +170,14 @@ const [loading, setLoading] =
               name="email"
               value={form.email}
               onChange={handleChange}
+              required
             />
           </div>
 
           <div className="mt-5">
             <textarea
               name="message"
+              required
               rows="6"
               value={form.message}
               onChange={handleChange}

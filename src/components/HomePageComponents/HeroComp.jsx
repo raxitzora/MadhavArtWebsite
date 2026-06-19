@@ -88,7 +88,7 @@ export default function HeroComp() {
           <motion.h1
             variants={fadeUp} custom={0.13}
             initial="hidden" animate={leftInView ? "visible" : "hidden"}
-            className="font-bebas text-6xl sm:text-5xl xl:text-7xl leading-tight tracking-[0.01em]"
+            className="font-bebas text-7xl sm:text-5xl xl:text-7xl leading-tight tracking-[0.01em]"
           >
             We Turn Bikes INTO {" "}
             <span className="text-orange-500 font-extrabold underline">Rolling</span>{" "}
@@ -101,8 +101,11 @@ export default function HeroComp() {
             initial="hidden" animate={leftInView ? "visible" : "hidden"}
             className="text-base md:text-lg text-gray-300 leading-8 max-w-lg"
           >
-            Every detail matters. From precision graphics to complete color makeovers,
-            we create vehicles that reflect your personality and style.
+         MadhavArt specializes in bike color customization, radium art,
+vehicle graphics, custom stickers, bike painting and
+restoration services in Madhavpur, Porbandar, Gujarat.
+Our workshop helps riders transform their motorcycles
+into unique custom builds that reflect their style.
           </motion.p>
 
           {/* CTA Button */}

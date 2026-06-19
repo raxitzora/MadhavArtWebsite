@@ -52,8 +52,26 @@ const E = [0.25, 0.46, 0.45, 0.94];
 export default function OurServices() {
   return (
     <section className="w-full bg-[#111111] text-white px-5 sm:px-8 lg:px-14 py-16 flex flex-col gap-0">
+
+      <div className="text-center mb-16">
+        <h1 className="mt-5 font-bebas text-5xl md:text-6xl text-orange-500">
+          Bike Color Customization and Radium Art Services in Madhavpur
+        </h1>
+
+        <p className="mt-4 text-gray-400 max-w-3xl mx-auto">
+          MadhavArt provides bike customization, radium art,
+          bike graphics, custom stickers, vehicle graphics,
+          bike restoration and car styling services in
+          Madhavpur, Gujarat.
+        </p>
+      </div>
+
       {SERVICES.map((service, i) => (
-        <ServiceRow key={service.number} service={service} reverse={i % 2 !== 0} />
+        <ServiceRow
+          key={service.number}
+          service={service}
+          reverse={i % 2 !== 0}
+        />
       ))}
     </section>
   );
@@ -93,14 +111,14 @@ function ServiceRow({ service, reverse }) {
         </motion.p>
 
         {/* Title */}
-        <motion.h3
+        <motion.h2
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={{ duration: 0.45, ease: E, delay: 0.15 }}
           className="font-bebas text-2xl sm:text-3xl font-extrabold leading-snug tracking-wider"
         >
           {title}
-        </motion.h3>
+        </motion.h2>
 
         {/* Description */}
         <motion.p
