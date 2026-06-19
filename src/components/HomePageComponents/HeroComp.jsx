@@ -88,7 +88,7 @@ export default function HeroComp() {
           <motion.h1
             variants={fadeUp} custom={0.13}
             initial="hidden" animate={leftInView ? "visible" : "hidden"}
-            className="font-bebas text-4xl sm:text-9xl xl:text-7xl leading-tight tracking-[0.01em]"
+            className="font-bebas text-6xl sm:text-5xl xl:text-7xl leading-tight tracking-[0.01em]"
           >
             We Turn Bikes INTO {" "}
             <span className="text-orange-500 font-extrabold underline">Rolling</span>{" "}
