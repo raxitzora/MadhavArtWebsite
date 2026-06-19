@@ -87,7 +87,7 @@ useEffect(() => {
     
 
       const formattedData =
-        res.data.data.map((item) => ({
+  (res.data.data || []).map((item) => ({
           id: item._id,
           cat: item.category,
         img: item.thumbnail.url.replace(
@@ -112,7 +112,7 @@ fullImg: item.thumbnail.url.replace(
 
       setAllItems(formattedData);
     } catch (error) {
-      console.error(error);
+      console.error(error.response?.data||error.message);
     }
   };
 
