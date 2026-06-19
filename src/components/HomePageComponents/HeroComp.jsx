@@ -90,7 +90,7 @@ export default function HeroComp() {
             initial="hidden" animate={leftInView ? "visible" : "hidden"}
             className="font-bebas text-4xl sm:text-5xl xl:text-7xl leading-tight tracking-[0.01em]"
           >
-            We Turn Bikes &amp; {" "}
+            We Turn Bikes {" "}
             <span className="text-orange-500 font-extrabold underline">Rolling</span>{" "}
             Masterpieces
           </motion.h1>
