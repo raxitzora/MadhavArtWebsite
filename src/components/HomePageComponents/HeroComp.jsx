@@ -91,7 +91,7 @@ export default function HeroComp() {
             className="font-bebas text-4xl sm:text-5xl xl:text-7xl leading-tight tracking-[0.01em]"
           >
             We Turn Bikes &amp; {" "}
-            <span className="text-orange-500 font-extrabold underline">Into Rolling</span>{" "}
+            <span className="text-orange-500 font-extrabold underline">Rolling</span>{" "}
             Masterpieces
           </motion.h1>
 
