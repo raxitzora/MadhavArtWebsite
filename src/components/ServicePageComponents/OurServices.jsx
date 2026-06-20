@@ -53,18 +53,27 @@ export default function OurServices() {
   return (
     <section className="w-full bg-[#111111] text-white px-5 sm:px-8 lg:px-14 py-16 flex flex-col gap-0">
 
-      <div className="text-center mb-16">
-        <h1 className="mt-5 font-bebas text-5xl md:text-6xl text-orange-500">
-          Bike Color Customization and Radium Art Services in Madhavpur
-        </h1>
+    <div className="text-center mb-16 mt-5">
+  <h1 className="font-bebas leading-none tracking-wide">
+    <span className="block text-white text-5xl md:text-6xl">
+      Transforming Vehicles Into
+    </span>
 
-        <p className="mt-4 text-gray-400 max-w-3xl mx-auto">
-          MadhavArt provides bike customization, radium art,
-          bike graphics, custom stickers, vehicle graphics,
-          bike restoration and car styling services in
-          Madhavpur, Gujarat.
-        </p>
-      </div>
+    <span className="block text-orange-500 text-6xl md:text-7xl mt-1">
+      Rolling Masterpieces
+    </span>
+
+    <span className="block text-white text-4xl md:text-5xl mt-2">
+      Through Customization & Radium Art
+    </span>
+  </h1>
+
+  <p className="mt-6 text-gray-400 max-w-3xl mx-auto leading-relaxed">
+    Custom bike graphics, radium art, restoration,
+    vehicle styling and personalized designs crafted
+    with precision at MadhavArt, Madhavpur.
+  </p>
+</div>
 
       {SERVICES.map((service, i) => (
         <ServiceRow

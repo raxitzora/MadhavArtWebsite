@@ -45,11 +45,7 @@ export default function HeroComp() {
     <section className="relative w-full min-h-screen bg-[#111111] text-white overflow-hidden px-4 sm:px-8 lg:px-14 pt-22.5 pb-10 lg:pb-16 flex items-center">
 
       {/* Ambient glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-40 top-1/3 w-125 h-125 rounded-full opacity-10"
-        style={{ background: "radial-gradient(circle, #ff6a00 0%, transparent 70%)" }}
-      />
+  
 
       <div className="relative z-10 w-full flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
 
@@ -77,7 +73,7 @@ export default function HeroComp() {
               animate={leftInView ? { scaleX: 1 } : { scaleX: 0 }}
               transition={{ duration: 0.5, ease: E, delay: 0.15 }}
               style={{ originX: 0, display: "block" }}
-              className="w-8 h-px bg-linear-to-r from-[#ff8c42] via-[#ff9f1c] to-[#ffb703]"
+              className="w-8 h-px bg-orange-500"
             />
             <span className="text-[10px] font-semibold tracking-[0.2em] text-orange-500 uppercase">
               Vehicle Customization Workshop
@@ -91,7 +87,7 @@ export default function HeroComp() {
             className="font-bebas text-7xl sm:text-5xl xl:text-7xl leading-tight tracking-[0.01em]"
           >
             We Turn Bikes INTO {" "}
-            <span className="text-orange-500 font-extrabold underline">Rolling</span>{" "}
+            <span className="text-orange-500 font-extrabold ">Rolling</span>{" "}
             Masterpieces
           </motion.h1>
 
@@ -120,25 +116,26 @@ into unique custom builds that reflect their style.
                 setFillButton(true);
                 setTimeout(() => navigate("/gallery"), 1300);
               }}
-              className="
-                group relative overflow-hidden w-full sm:w-120 h-14 rounded-xl
-                font-semibold text-white
-                bg-[#181818] border border-[#ff8c42]/20
-                shadow-lg shadow-blue-500/20
-                transition-all duration-300
-                hover:scale-105
-                hover:shadow-[0_0_30px_rgba(249,115,22,0.55)]
-              "
+         className="
+group relative overflow-hidden
+w-full sm:w-60 h-14 rounded-xl
+font-semibold text-white
+bg-[#181818]
+border border-orange-500/30
+transition-all duration-300
+hover:border-orange-500
+hover:shadow-[0_0_20px_rgba(249,115,22,0.25)]
+"
             >
-              <div
-                className={`
-                  absolute inset-0
-                  bg-linear-to-r from-[#ffb36b] via-[#ff9a3d] to-[#ff7a18]
-                  origin-left z-0
-                  transition-transform duration-1300 ease-in-out
-                  ${fillButton ? "scale-x-100" : "scale-x-0"}
-                `}
-              />
+           <div
+  className={`
+    absolute inset-0
+    bg-orange-500
+    origin-left z-0
+    transition-transform duration-1300 ease-in-out
+    ${fillButton ? "scale-x-100" : "scale-x-0"}
+  `}
+/>
               <span className="relative z-20 flex items-center justify-center gap-3">
                 <Sparkles size={18} className="group-hover:rotate-12 transition-transform duration-300" />
                 Explore Our Work

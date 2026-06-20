@@ -103,17 +103,19 @@ export default function GalleryHeroComp() {
           {/* ── Primary button – 100% ORIGINAL, untouched ── */}
          <button
   onClick={scrollToGallery}
-  className="
-    group relative overflow-hidden
-    w-full sm:w-105 h-14 rounded-xl
-    font-semibold text-white
-    bg-[#181818]
-    border border-[#ff8c42]/20
-    shadow-lg shadow-[#ff8c42]/10
-    transition-all duration-300
-    hover:scale-105
-    hover:shadow-[0_0_35px_rgba(255,140,66,0.65)]
-  "
+className="
+group relative overflow-hidden
+w-full sm:w-auto
+px-8
+h-14 rounded-xl
+font-semibold text-white
+bg-[#181818]
+border border-[#ff8c42]/20
+shadow-lg shadow-[#ff8c42]/10
+transition-all duration-300
+hover:scale-105
+hover:shadow-[0_0_35px_rgba(255,140,66,0.65)]
+"
 >
   <div
     className={`
