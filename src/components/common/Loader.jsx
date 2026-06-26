@@ -266,7 +266,7 @@ export default function Loader({ onComplete }) {
   const startRef = useRef(null);
 
   useEffect(() => {
-    const TOTAL = 5000;
+    const TOTAL = 4500;
 const sceneBreaks = [
   0,     // Intro
   0,
