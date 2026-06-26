@@ -1,4 +1,4 @@
-```txt
+
 # ============================================
 # MadhavArt Robots File
 # ============================================
@@ -10,4 +10,4 @@ Allow: /
 Host: https://madhavart.vercel.app
 
 Sitemap: https://madhavart.vercel.app/sitemap.xml
-```
+
