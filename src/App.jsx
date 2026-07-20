@@ -3,6 +3,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "motion/react";
 import ScrollToTopButton from "./components/common/ScrollToTopButton.jsx";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "./components/common/Navbar";
 import Loader from "./components/common/Loader";
@@ -22,10 +24,27 @@ import { Toaster } from "react-hot-toast";
 import "./App.css";
 
 function App() {
+  const navigate = useNavigate();
+
   const location = useLocation();
 
   const isAdminRoute =
     location.pathname.startsWith("/admin");
+useEffect(() => {
+  const isMobile = window.innerWidth <= 768;
+
+  if (
+    isMobile &&
+    location.pathname === "/" &&
+    !sessionStorage.getItem("gallery-redirected")
+  ) {
+    sessionStorage.setItem("gallery-redirected", "true");
+
+    navigate("/gallery", {
+      replace: true,
+    });
+  }
+}, [location.pathname, navigate]);
 
   const [showLoader, setShowLoader] = useState(() => {
     if (isAdminRoute) return false;

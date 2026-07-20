@@ -2,7 +2,6 @@
 import { Helmet } from "react-helmet-async";
 
 import HeroComp from "../../components/HomePageComponents/HeroComp";
-import WhatWeDoComp from "../../components/HomePageComponents/WhatWeDoComp";
 import WhyMadhavArtComp from "../../components/HomePageComponents/WhyMadhavArtComp";
 import OurWorkComp from "../../components/HomePageComponents/OurWorkComp";
 import Footer from "../../components/common/Footer";
@@ -218,7 +217,6 @@ const HomePage = () => {
       <main>
         <HeroComp />
         <WhyMadhavArtComp />
-        <WhatWeDoComp />
         <OurWorkComp />
         <Footer />
       </main>
