@@ -13,8 +13,7 @@ const GalleryPage = () => {
         ========================= */}
 
         <title>
-          Gallery | Bike Customization, Bike Painting & Radium Art Portfolio |
-          MadhavArt
+          Gallery
         </title>
 
         <meta

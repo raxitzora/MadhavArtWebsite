@@ -13,8 +13,7 @@ const AboutPage = () => {
         ========================= */}
 
         <title>
-          About MadhavArt | Founded by Ramesh Zora | Bike Customization in
-          Madhavpur Ghed
+          About
         </title>
 
         <meta

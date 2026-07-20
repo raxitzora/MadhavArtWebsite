@@ -13,8 +13,7 @@ const ServicePage = () => {
         ========================= */}
 
         <title>
-          Bike Customization Services | Bike Painting, Radium Art & Vehicle
-          Graphics | MadhavArt
+          Services
         </title>
 
         <meta

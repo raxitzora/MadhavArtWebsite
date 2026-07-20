@@ -17,7 +17,7 @@ const HomePage = () => {
         ========================== */}
 
         <title>
-          Bike Customization, Painting & Radium Art in Madhavpur | MadhavArt
+          MadhavArt
         </title>
 
         <meta
