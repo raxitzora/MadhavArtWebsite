@@ -6,6 +6,7 @@ import ScrollToTopButton from "./components/common/ScrollToTopButton.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 import Navbar from "./components/common/Navbar";
 import Loader from "./components/common/Loader";
 import HomePage from "./pages/HomePage/HomePage.jsx";
@@ -14,6 +15,7 @@ import GalleryPage from "./pages/GalleryPage/GalleryPage.jsx";
 import AboutPage from "./pages/AboutPage/AboutPage.jsx";
 import ContactPage from "./pages/ContactPage/ContactPage.jsx";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
+import MobileHomeCapsule from "./components/common/MobileHomeCapsule";
 
 import AdminLogin from "./admin/pages/AdminLogin";
 import Dashboard from "./admin/pages/Dashboard";
@@ -91,6 +93,9 @@ useEffect(() => {
             },
           }}
         />
+        {location.pathname === "/gallery" && (
+  <MobileHomeCapsule />
+)}
 
         <Routes>
           <Route
