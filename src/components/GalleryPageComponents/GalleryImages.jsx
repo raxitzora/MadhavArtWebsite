@@ -264,7 +264,7 @@ const navigateLightbox = (dir) => {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             transition={{ duration: 0.15 }}
-            className={`flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border transition-colors duration-200 ${
+            className={`flex items-center gap-2 text-md font-semibold px-4 py-3 rounded-full border transition-colors duration-200 ${
               activeTab === key
                 ? "bg-orange-500 border-orange-500 text-white"
                 : "border-white/15 text-gray-400 hover:border-orange-500/50 hover:text-white"
@@ -403,7 +403,7 @@ group-hover:scale-[1.02]
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-100 bg-black/92 flex items-center justify-center px-4"
+            className="fixed inset-0 z-100 bg-black/92 flex items-center justify-center px-6"
             onClick={() => setLightbox(null)}
           >
             <motion.div

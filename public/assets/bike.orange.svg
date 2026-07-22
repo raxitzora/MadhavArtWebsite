@@ -1,0 +1,135 @@
+#!/usr/bin/env node
+/**
+ * make-orange-svg.js
+ *
+ * Recreates the CSS filter chain:
+ *   sepia(1) saturate(8) hue-rotate(-15deg) brightness(1.1)
+ * as a color matrix, and applies it to every hex color found in an SVG
+ * file's `fill="#..."`, `stroke="#..."`, and inline `style="fill:#..."`
+ * attributes. This produces a STATIC "orange" SVG that looks the same
+ * as the live CSS-filtered version, but costs nothing at runtime.
+ *
+ * Usage:
+ *   node make-orange-svg.js bike.svg bike-orange.svg
+ */
+
+const fs = require("fs");
+
+const [, , inputPath, outputPath] = process.argv;
+
+if (!inputPath || !outputPath) {
+  console.error("Usage: node make-orange-svg.js <input.svg> <output.svg>");
+  process.exit(1);
+}
+
+// ---- 3x3 color matrices matching the W3C Filter Effects spec formulas ----
+
+function sepiaMatrix() {
+  return [
+    [0.393, 0.769, 0.189],
+    [0.349, 0.686, 0.168],
+    [0.272, 0.534, 0.131],
+  ];
+}
+
+function saturateMatrix(s) {
+  return [
+    [0.213 + 0.787 * s, 0.715 - 0.715 * s, 0.072 - 0.072 * s],
+    [0.213 - 0.213 * s, 0.715 + 0.285 * s, 0.072 - 0.072 * s],
+    [0.213 - 0.213 * s, 0.715 - 0.715 * s, 0.072 + 0.928 * s],
+  ];
+}
+
+function hueRotateMatrix(deg) {
+  const a = (deg * Math.PI) / 180;
+  const c = Math.cos(a);
+  const s = Math.sin(a);
+  return [
+    [0.213 + c * 0.787 - s * 0.213, 0.715 - c * 0.715 - s * 0.715, 0.072 - c * 0.072 + s * 0.928],
+    [0.213 - c * 0.213 + s * 0.143, 0.715 + c * 0.285 + s * 0.14, 0.072 - c * 0.072 - s * 0.283],
+    [0.213 - c * 0.213 - s * 0.787, 0.715 - c * 0.715 + s * 0.715, 0.072 + c * 0.928 + s * 0.072],
+  ];
+}
+
+function scalarMatrix(b) {
+  return [
+    [b, 0, 0],
+    [0, b, 0],
+    [0, 0, b],
+  ];
+}
+
+function multiply(a, b) {
+  const out = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      out[i][j] = a[i][0] * b[0][j] + a[i][1] * b[1][j] + a[i][2] * b[2][j];
+    }
+  }
+  return out;
+}
+
+// Compose in CSS filter order: sepia -> saturate -> hue-rotate -> brightness
+// result = Brightness * HueRotate * Saturate * Sepia
+const M = multiply(
+  scalarMatrix(1.1),
+  multiply(hueRotateMatrix(-15), multiply(saturateMatrix(8), sepiaMatrix()))
+);
+
+function applyMatrix([r, g, b]) {
+  const nr = M[0][0] * r + M[0][1] * g + M[0][2] * b;
+  const ng = M[1][0] * r + M[1][1] * g + M[1][2] * b;
+  const nb = M[2][0] * r + M[2][1] * g + M[2][2] * b;
+  return [nr, ng, nb].map((v) => Math.min(255, Math.max(0, Math.round(v * 255))));
+}
+
+function hexToRgb(hex) {
+  let h = hex.replace("#", "");
+  if (h.length === 3) {
+    h = h
+      .split("")
+      .map((c) => c + c)
+      .join("");
+  }
+  const num = parseInt(h, 16);
+  return [(num >> 16) & 255, (num >> 8) & 255, num & 255].map((v) => v / 255);
+}
+
+function rgbToHex([r, g, b]) {
+  return (
+    "#" +
+    [r, g, b]
+      .map((v) => v.toString(16).padStart(2, "0"))
+      .join("")
+  );
+}
+
+function recolorHex(hex) {
+  const rgb = hexToRgb(hex);
+  const transformed = applyMatrix(rgb);
+  return rgbToHex(transformed);
+}
+
+let svg = fs.readFileSync(inputPath, "utf8");
+
+// Replace hex colors inside fill="#..." and stroke="#..."
+svg = svg.replace(/(fill|stroke)="(#[0-9a-fA-F]{3,6})"/g, (match, attr, hex) => {
+  if (hex.toLowerCase() === "#ffffff" || hex.toLowerCase() === "none") return match;
+  return `${attr}="${recolorHex(hex)}"`;
+});
+
+// Replace hex colors inside style="...fill:#...;stroke:#...;..."
+svg = svg.replace(/style="([^"]*)"/g, (match, styleContent) => {
+  const newStyle = styleContent.replace(
+    /(fill|stroke)\s*:\s*(#[0-9a-fA-F]{3,6})/g,
+    (m2, prop, hex) => `${prop}:${recolorHex(hex)}`
+  );
+  return `style="${newStyle}"`;
+});
+
+fs.writeFileSync(outputPath, svg, "utf8");
+console.log(`Wrote ${outputPath}`);
