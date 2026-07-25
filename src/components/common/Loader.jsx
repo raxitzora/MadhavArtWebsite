@@ -182,13 +182,13 @@ filter:
   y="138"
   textAnchor="middle"
   dominantBaseline="middle"
-  fontSize="18"
+  fontSize="22"
   fontWeight="900"
-  letterSpacing="3"
-  fill="#f97316"
-  stroke="#ffffff"
-  strokeWidth="1.2"
-  paintOrder="stroke"
+  letterSpacing="1.5"
+  fill="#111111"
+  style={{
+    fontFamily: "Arial Black, Impact, sans-serif"
+  }}
 >
   MADHAVART
 </text>
