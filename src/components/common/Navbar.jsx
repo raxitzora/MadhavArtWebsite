@@ -56,14 +56,18 @@ export default function Navbar() {
 
           {/* Logo */}
           <NavLink to="/" onClick={closeMenu} className="flex items-center gap-3 shrink-0">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 6 }}
-              whileTap={{ scale: 0.93 }}
-              transition={{ type: "spring", stiffness: 380, damping: 14 }}
-              className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center font-extrabold text-black text-xl shadow-[0_0_18px_rgba(249,115,22,0.45)]"
-            >
-              M
-            </motion.div>
+      <motion.div
+  whileHover={{ scale: 1.1, rotate: 6 }}
+  whileTap={{ scale: 0.93 }}
+  transition={{ type: "spring", stiffness: 380, damping: 14 }}
+  className="w-22 h-22 overflow-hidden flex items-center justify-center"
+>
+  <img
+    src="/icon.png"
+    alt="MadhavArt Logo"
+    className="w-full h-full object-contain"
+  />
+</motion.div>
             <span className="text-[1.65rem] font-extrabold leading-none tracking-tight">
               <span className="text-white">Madhav</span>
               <span className="text-orange-500">Art</span>

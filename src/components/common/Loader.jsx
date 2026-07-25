@@ -101,7 +101,7 @@ const RealisticMotorcycleSVG = ({
 
       {/* ── BASE LAYER: dark matte gray ── */}
       <image
-  href="/assets/bike.svg"
+  href="/assets/bike.png"
   x="0"
   y="0"
   width="660"
@@ -115,7 +115,7 @@ const RealisticMotorcycleSVG = ({
 {/* PREPARATION GREY LAYER */}
 <g clipPath="url(#prepClip)">
   <image
-    href="/assets/bike-silver.svg"
+    href="/assets/bike-silver.png"
     x="0"
     y="0"
     width="660"
@@ -131,7 +131,7 @@ const RealisticMotorcycleSVG = ({
       {/* ── ORANGE PAINT LAYER (clip-revealed) ── */}
       <g clipPath={`url(#${paintClipId})`}>
   <image
-    href="/assets/bike.svg"
+    href="/assets/bike.png"
     x="0"
     y="0"
     width="660"
@@ -252,6 +252,24 @@ const Particles = ({ active }) => {
   );
 };
 
+const preloadImage = (src) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = async () => {
+      try {
+        if (img.decode) {
+          await img.decode();
+        }
+      } catch (_) {}
+
+      resolve();
+    };
+
+    img.onerror = reject;
+    img.src = src;
+  });
+};
 // ─── Loader ───────────────────────────────────────────────────────────────────
 export default function Loader({ onComplete }) {
   const [scene, setScene] = useState(0);
@@ -321,7 +339,16 @@ else if (elapsed >= 4600)
       }
     };
 
+Promise.all([
+  preloadImage("/assets/bike.png"),
+  preloadImage("/assets/bike-silver.png"),
+])
+  .then(() => {
     rafRef.current = requestAnimationFrame(tick);
+  })
+  .catch(() => {
+    rafRef.current = requestAnimationFrame(tick);
+  });
     return () => cancelAnimationFrame(rafRef.current);
   }, [bikeExiting, onComplete]);
 
