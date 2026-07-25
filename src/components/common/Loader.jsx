@@ -137,8 +137,8 @@ const RealisticMotorcycleSVG = ({
     width="660"
     height="350"
     style={{
-      filter:
-        "sepia(1) saturate(8) hue-rotate(-15deg) brightness(1.1)"
+filter:
+  "sepia(0.45) saturate(4.5) hue-rotate(-8deg) brightness(1.55) contrast(0.9)"
     }}
   />
   
@@ -156,7 +156,7 @@ const RealisticMotorcycleSVG = ({
   width={220}
   height={40}
   fill="#ffffff"
-  opacity="0.45"
+  opacity="0.18"
 />
 
   {/* Sticker reveal */}
@@ -165,26 +165,33 @@ const RealisticMotorcycleSVG = ({
       clipPath: `inset(0 0 0 ${100 - decalProgress * 100}%)`
     }}
   >
-    <rect
-      x="295"
-      y="120"
-      width="130"
-      height="24"
-      rx="3"
-      fill="#000000"
-      opacity="0.22"
-    />
+<rect
+  x="288"
+  y="116"
+  width="145"
+  height="32"
+  rx="6"
+  fill="#ffffff"
+  opacity="0.15"
+  stroke="#ffffff"
+  strokeWidth="1.5"
+/>
 
-    <text
-      x="360"
-      y="145"
-      textAnchor="middle"
-      fontSize="18"
-      fontWeight="900"
-      letterSpacing="4"
-fill="#ffffff"    >
-      MADHAVART
-    </text>
+<text
+  x="360"
+  y="138"
+  textAnchor="middle"
+  dominantBaseline="middle"
+  fontSize="18"
+  fontWeight="900"
+  letterSpacing="3"
+  fill="#f97316"
+  stroke="#ffffff"
+  strokeWidth="1.2"
+  paintOrder="stroke"
+>
+  MADHAVART
+</text>
   </g>
 </g>
       )}
