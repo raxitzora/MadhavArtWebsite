@@ -60,12 +60,12 @@ export default function Navbar() {
   whileHover={{ scale: 1.1, rotate: 6 }}
   whileTap={{ scale: 0.93 }}
   transition={{ type: "spring", stiffness: 380, damping: 14 }}
-  className="w-22 h-22 overflow-hidden flex items-center justify-center"
+  className="w-19 h-19 overflow-hidden flex items-center justify-center"
 >
   <img
-    src="/icon.png"
+    src="/logo.png"
     alt="MadhavArt Logo"
-    className="w-full h-full object-contain"
+    className="w-full h-full object-cover"
   />
 </motion.div>
             <span className="text-[1.65rem] font-extrabold leading-none tracking-tight">
