@@ -275,6 +275,7 @@ export default function Loader({ onComplete }) {
   const [scene, setScene] = useState(0);
   const [paintProgress, setPaintProgress] = useState(0);
   const [prepProgress, setPrepProgress] = useState(0);
+  const [assetsReady, setAssetsReady] = useState(false);
 
   const [decalProgress, setDecalProgress] = useState(0);
   const [shineProgress, setShineProgress] = useState(0);
@@ -282,6 +283,14 @@ export default function Loader({ onComplete }) {
   const [visible, setVisible] = useState(true);
   const rafRef = useRef(null);
   const startRef = useRef(null);
+      useEffect(() => {
+  Promise.all([
+    preloadImage("/assets/bike.png"),
+    preloadImage("/assets/bike-silver.png"),
+  ])
+    .then(() => setAssetsReady(true))
+    .catch(() => setAssetsReady(true));
+}, []);
 
   useEffect(() => {
     const TOTAL = 4500;
@@ -295,14 +304,25 @@ const sceneBreaks = [
   4800   // Exit
 ];
     const tick = (now) => {
-      if (!startRef.current) startRef.current = now;
-      const elapsed = now - startRef.current;
+ if (!startRef.current) {
+    startRef.current = now;
+}
+
+const elapsed = now - startRef.current;
+
+// Wait until welcome animation finishes
+if (!assetsReady && elapsed >= 1000) {
+    rafRef.current = requestAnimationFrame(tick);
+    return;
+}
 
       let s = 0;
       for (let i = sceneBreaks.length - 1; i >= 0; i--) {
         if (elapsed >= sceneBreaks[i]) { s = i; break; }
       }
-      setScene(s);
+      if (s <= 1 || assetsReady) {
+    setScene(s);
+}
 
       // Paint (scene 3: 2000–3000ms)
 if (elapsed >= 1000 && elapsed < 2200)
@@ -339,19 +359,11 @@ else if (elapsed >= 4600)
       }
     };
 
-Promise.all([
-  preloadImage("/assets/bike.png"),
-  preloadImage("/assets/bike-silver.png"),
-])
-  .then(() => {
-    rafRef.current = requestAnimationFrame(tick);
-  })
-  .catch(() => {
-    rafRef.current = requestAnimationFrame(tick);
-  });
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [bikeExiting, onComplete]);
 
+
+rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+}, [bikeExiting, onComplete, assetsReady]);
   const sceneLabels = {
     1: { line1: "Step 01", line2: "Welcome to Madhavart" },
     2: { line1: "Step 02", line2: "Cleaning & Preparation" },
