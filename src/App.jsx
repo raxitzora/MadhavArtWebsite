@@ -93,7 +93,7 @@ useEffect(() => {
             },
           }}
         />
-        {location.pathname === "/gallery" && (
+  {!showLoader && location.pathname === "/gallery" && (
   <MobileHomeCapsule />
 )}
 
