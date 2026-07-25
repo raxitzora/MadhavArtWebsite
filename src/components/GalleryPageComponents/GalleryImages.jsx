@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { HiX, HiOutlineArrowRight } from "react-icons/hi";
 import { MdFilterList } from "react-icons/md";
-import { useEffect } from "react";
+import { useEffect,useMemo  } from "react";
 import axios from "axios";
 
 
@@ -27,7 +27,7 @@ const [selectedVariant, setSelectedVariant] = useState(0);
 const [allItems, setAllItems] = useState([]);
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-40px" });
-    const TABS = [
+const TABS = useMemo(() => [
   {
     key: "all",
     label: "All Work",
@@ -36,39 +36,29 @@ const [allItems, setAllItems] = useState([]);
   {
     key: "radium-art",
     label: "Radium Art",
-    count: allItems.filter(
-      (i) => i.cat === "radium-art"
-    ).length,
+    count: allItems.filter(i => i.cat === "radium-art").length,
   },
   {
     key: "graphics",
     label: "Graphics",
-    count: allItems.filter(
-      (i) => i.cat === "graphics"
-    ).length,
+    count: allItems.filter(i => i.cat === "graphics").length,
   },
   {
     key: "customize-bikes",
     label: "Customize Bikes",
-    count: allItems.filter(
-      (i) => i.cat === "customize-bikes"
-    ).length,
+    count: allItems.filter(i => i.cat === "customize-bikes").length,
   },
   {
     key: "vehicle-touchup",
     label: "Vehicle Touch-Up",
-    count: allItems.filter(
-      (i) => i.cat === "vehicle-touchup"
-    ).length,
+    count: allItems.filter(i => i.cat === "vehicle-touchup").length,
   },
   {
     key: "custom-designs",
     label: "Custom Designs",
-    count: allItems.filter(
-      (i) => i.cat === "custom-designs"
-    ).length,
+    count: allItems.filter(i => i.cat === "custom-designs").length,
   },
-];
+], [allItems]);
 
 
 
@@ -150,12 +140,11 @@ fullImg: item.thumbnail.url.replace(
     });
   });
 }, [lightbox]);
-const items =
-  activeTab === "all"
+const items = useMemo(() => {
+  return activeTab === "all"
     ? allItems
-    : allItems.filter(
-        (i) => i.cat === activeTab
-      );
+    : allItems.filter((i) => i.cat === activeTab);
+}, [allItems, activeTab]);
 
 const navigateLightbox = (dir) => {
   setImageLoading(true);
@@ -289,7 +278,6 @@ const navigateLightbox = (dir) => {
         - CSS hover effects (group-hover) for image zoom — cheaper than whileHover on 20 nodes
       */}
   <motion.div
-  layout
   className="
   grid
   grid-cols-1
@@ -302,7 +290,6 @@ const navigateLightbox = (dir) => {
           {items.map((item) => (
             <motion.div
               key={item.id}
-              layout
               variants={gridItem}
               initial="hidden"
               animate="show"

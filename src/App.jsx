@@ -59,42 +59,38 @@ useEffect(() => {
     setShowLoader(false);
   };
 
+  if (!isAdminRoute && showLoader) {
   return (
-    <>
-      {/* Loader Overlay */}
+    <Loader onComplete={handleLoaderComplete} />
+  );
+}
+return (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{
+      duration: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    }}
+  >
+    <ScrollToTop />
 
-      {!isAdminRoute && showLoader && (
-        <Loader
-          onComplete={handleLoaderComplete}
-        />
-      )}
+    {!isAdminRoute && <Navbar />}
 
-      {/* Website */}
+    <Toaster
+      position="top-right"
+      toastOptions={{
+        style: {
+          background: "#181818",
+          color: "#fff",
+          border: "1px solid rgba(249,115,22,.2)",
+        },
+      }}
+    />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 0.4,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-      >
-        <ScrollToTop />
-
-        {!isAdminRoute && <Navbar />}
-
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: "#181818",
-              color: "#fff",
-              border: "1px solid rgba(249,115,22,.2)",
-            },
-          }}
-        />
-  {!showLoader && location.pathname === "/gallery" && (
-  <MobileHomeCapsule />
+{!showLoader &&
+  location.pathname === "/gallery" && (
+    <MobileHomeCapsule />
 )}
 
         <Routes>
@@ -142,7 +138,6 @@ useEffect(() => {
           <ScrollToTopButton />
         )}
       </motion.div>
-    </>
   );
 }
 

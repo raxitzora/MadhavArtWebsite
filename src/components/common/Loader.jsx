@@ -290,13 +290,30 @@ export default function Loader({ onComplete }) {
   const [visible, setVisible] = useState(true);
   const rafRef = useRef(null);
   const startRef = useRef(null);
-      useEffect(() => {
-  Promise.all([
-    preloadImage("/assets/bike.png"),
-    preloadImage("/assets/bike-silver.png"),
-  ])
-    .then(() => setAssetsReady(true))
-    .catch(() => setAssetsReady(true));
+useEffect(() => {
+  let mounted = true;
+
+  const loadAssets = async () => {
+    try {
+      await Promise.all([
+        preloadImage("/assets/bike.png"),
+        preloadImage("/assets/bike-silver.png"),
+      ]);
+    } catch (e) {
+      // Ignore image preload errors
+    } finally {
+      if (mounted) {
+        setAssetsReady(true);
+      }
+    }
+  };
+
+  // Let the browser paint the first frame of the loader first.
+  requestAnimationFrame(loadAssets);
+
+  return () => {
+    mounted = false;
+  };
 }, []);
 
   useEffect(() => {
@@ -318,7 +335,7 @@ const sceneBreaks = [
 const elapsed = now - startRef.current;
 
 // Wait until welcome animation finishes
-if (!assetsReady && elapsed >= 1000) {
+if (!assetsReady && elapsed >= 2000) {
     rafRef.current = requestAnimationFrame(tick);
     return;
 }
