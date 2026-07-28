@@ -53,26 +53,56 @@ export default function OurServices() {
   return (
     <section className="w-full bg-[#111111] text-white px-5 sm:px-8 lg:px-14 py-16 flex flex-col gap-0">
 
-    <div className="text-center mb-16 mt-5">
-  <h1 className="font-bebas leading-none tracking-wide">
-    <span className="block text-white text-5xl md:text-6xl">
-      Transforming Vehicles Into
-    </span>
+<div className="text-center mb-16 mt-5 overflow-hidden">
+  <motion.h1
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4 }}
+    className="font-bebas leading-none tracking-wide"
+  >
+    <motion.span
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: E }}
+      className="block text-white text-5xl md:text-6xl"
+    >
+      Premium Vehicle
+    </motion.span>
 
-    <span className="block text-orange-500 text-6xl md:text-7xl mt-1">
-      Rolling Masterpieces
-    </span>
+    <motion.span
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.15, ease: E }}
+      className="block text-orange-500 text-6xl md:text-7xl mt-1"
+    >
+      Customization
+    </motion.span>
 
-    <span className="block text-white text-4xl md:text-5xl mt-2">
-      Through Customization & Radium Art
-    </span>
-  </h1>
+    <motion.span
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.3, ease: E }}
+      className="block text-white text-4xl md:text-5xl mt-2"
+    >
+      Crafted for Every Ride
+    </motion.span>
+  </motion.h1>
 
-  <p className="mt-6 text-gray-400 max-w-3xl mx-auto leading-relaxed">
+  <motion.p
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: 0.45, ease: E }}
+    className="mt-6 text-gray-400 max-w-3xl mx-auto leading-relaxed"
+  >
     Custom bike graphics, radium art, restoration,
     vehicle styling and personalized designs crafted
     with precision at MadhavArt, Madhavpur.
-  </p>
+  </motion.p>
 </div>
 
       {SERVICES.map((service, i) => (
